@@ -5,6 +5,7 @@ import { Field, Form, Formik, useFormikContext } from 'formik';
 import { Navigate } from 'react-router-dom';
 
 import { InjectAppServices } from '../../../services/pure-di';
+import { isCollaboratorAccountReportEnabled } from '../../../services/collaborator-permissions-flag';
 import { getFormInitialValues, languageOptions } from '../../../utils';
 import { validatePassword } from '../../../validations';
 import { GoBackButton } from '../../BuyProcess/PlanSelection/GoBackButton';
@@ -305,43 +306,45 @@ export const CollaboratorEditionSection = InjectAppServices(
                           />
                         </FieldGroup>
                       </CollapsibleSection>
-                      <AccountReportsSection
-                        formatMessage={_}
-                        ownerEmail={truncatedOwnerEmail}
-                        isOpen={isAccountReportsOpen}
-                        onToggle={toggleAccordionSection(setIsAccountReportsOpen)}
-                      >
-                        <div className="dp-text-switch m-t-12">
-                          <div className="dp-switch">
-                            <Field
-                              type="checkbox"
-                              id="weekly_account_report_enabled"
-                              name="weekly_account_report_enabled"
-                            />
-                            <label htmlFor="weekly_account_report_enabled">
-                              <span />
-                            </label>
-                          </div>
-                          <div className="m-l-12">
-                            <p className="m-b-12">
-                              <strong>
-                                {_('collaborator_edition.account_reports_weekly_label')}
-                              </strong>
-                            </p>
-                            <p className="m-b-12">
-                              {_('collaborator_edition.account_reports_weekly_description')}
-                            </p>
-                            <p className="m-b-0">
-                              <FormattedMessage
-                                id="collaborator_edition.account_reports_weekly_note"
-                                values={{
-                                  strong: (chunks) => <strong>{chunks}</strong>,
-                                }}
+                      {isCollaboratorAccountReportEnabled() && (
+                        <AccountReportsSection
+                          formatMessage={_}
+                          ownerEmail={truncatedOwnerEmail}
+                          isOpen={isAccountReportsOpen}
+                          onToggle={toggleAccordionSection(setIsAccountReportsOpen)}
+                        >
+                          <div className="dp-text-switch m-t-12">
+                            <div className="dp-switch">
+                              <Field
+                                type="checkbox"
+                                id="weekly_account_report_enabled"
+                                name="weekly_account_report_enabled"
                               />
-                            </p>
+                              <label htmlFor="weekly_account_report_enabled">
+                                <span />
+                              </label>
+                            </div>
+                            <div className="m-l-12">
+                              <p className="m-b-12">
+                                <strong>
+                                  {_('collaborator_edition.account_reports_weekly_label')}
+                                </strong>
+                              </p>
+                              <p className="m-b-12">
+                                {_('collaborator_edition.account_reports_weekly_description')}
+                              </p>
+                              <p className="m-b-0">
+                                <FormattedMessage
+                                  id="collaborator_edition.account_reports_weekly_note"
+                                  values={{
+                                    strong: (chunks) => <strong>{chunks}</strong>,
+                                  }}
+                                />
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </AccountReportsSection>
+                        </AccountReportsSection>
+                      )}
                     </ul>
 
                     <FormMessages />

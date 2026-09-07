@@ -8,6 +8,7 @@ import IntlProvider from '../../../i18n/DopplerIntlProvider.double-with-ids-as-v
 import { BrowserRouter } from 'react-router-dom';
 
 const updateUserAccountInformation = jest.fn();
+const originalAccountReportFlag = process.env.REACT_APP_COLLABORATOR_ACCOUNT_REPORT_ENABLED;
 
 const forcedServices = {
   appSessionRef: {
@@ -31,8 +32,38 @@ const forcedServices = {
 
 describe('test for Collaborator Edition Section component ', () => {
   beforeEach(() => {
+    process.env.REACT_APP_COLLABORATOR_ACCOUNT_REPORT_ENABLED = 'true';
     updateUserAccountInformation.mockReset();
     updateUserAccountInformation.mockResolvedValue({ success: true });
+  });
+
+  afterEach(() => {
+    if (originalAccountReportFlag === undefined) {
+      delete process.env.REACT_APP_COLLABORATOR_ACCOUNT_REPORT_ENABLED;
+    } else {
+      process.env.REACT_APP_COLLABORATOR_ACCOUNT_REPORT_ENABLED = originalAccountReportFlag;
+    }
+  });
+
+  it('should hide account reports when the flag is disabled', () => {
+    process.env.REACT_APP_COLLABORATOR_ACCOUNT_REPORT_ENABLED = 'false';
+
+    render(
+      <AppServicesProvider forcedServices={forcedServices}>
+        <BrowserRouter>
+          <IntlProvider>
+            <CollaboratorEditionSection />
+          </IntlProvider>
+        </BrowserRouter>
+      </AppServicesProvider>,
+    );
+
+    expect(
+      screen.queryByText('collaborator_edition.account_reports_title'),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+    expect(screen.getByText('collaborator_edition.personal_data_title')).toBeInTheDocument();
+    expect(screen.getByText('collaborator_edition.change_password_title')).toBeInTheDocument();
   });
 
   it('should render collaborator edition form', async () => {
