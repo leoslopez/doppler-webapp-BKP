@@ -45,7 +45,7 @@ describe('TransferInformation', () => {
     ).not.toHaveLength(0);
     expect(screen.getByText('BBVA BANCO FRANCES S.A.')).toBeInTheDocument();
     expect(screen.getByText('Biside SRL')).toBeInTheDocument();
-    expect(screen.getByText('30-7119594-1')).toBeInTheDocument();
+    expect(screen.getByText('30-71159594-1')).toBeInTheDocument();
     expect(screen.getByText('090/408227/0')).toBeInTheDocument();
     expect(screen.getByText('0170090920000040822703')).toBeInTheDocument();
     expect(screen.getByText('BISIDE')).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('TransferInformation', () => {
     ).toEqual([
       'Banco: BBVA BANCO FRANCES S.A.',
       'Titular: Biside SRL',
-      'CUIT: 30-7119594-1',
+      'CUIT: 30-71159594-1',
       'CC: 090/408227/0',
       'CBU: 0170090920000040822703',
       'Alias: BISIDE',
