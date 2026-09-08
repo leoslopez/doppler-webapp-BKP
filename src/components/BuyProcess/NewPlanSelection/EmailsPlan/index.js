@@ -44,6 +44,7 @@ const getSessionPromocodeApplied = (sessionPlan) => {
 
 const getCheckoutUrl = ({ search, selectedPlan, promocodeApplied }) => {
   const params = new URLSearchParams(search);
+  params.set('newPlanSelection', 'true');
   params.set('selected-plan', selectedPlan.id);
   params.delete('promo-code');
   params.delete('Promo-code');

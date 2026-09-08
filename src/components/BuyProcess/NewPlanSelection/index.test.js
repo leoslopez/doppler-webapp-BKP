@@ -1262,7 +1262,10 @@ describe('NewPlanSelection component', () => {
       screen.getByRole('link', {
         name: 'buy_process.new_plan_selection.choose_plan',
       }),
-    ).toHaveAttribute('href', '/checkout/premium/monthly-deliveries?selected-plan=30223&buyType=1');
+    ).toHaveAttribute(
+      'href',
+      '/checkout/premium/monthly-deliveries?newPlanSelection=true&selected-plan=30223&buyType=1',
+    );
   });
 
   it('should show current plan warning and hide promocode when selected byEmail plan equals current one', async () => {
@@ -1581,7 +1584,9 @@ describe('NewPlanSelection component', () => {
         screen
           .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
           .getAttribute('href'),
-      ).toBe('/checkout/premium/monthly-deliveries?selected-plan=30223&buyType=1'),
+      ).toBe(
+        '/checkout/premium/monthly-deliveries?newPlanSelection=true&selected-plan=30223&buyType=1',
+      ),
     );
   });
 
@@ -1754,7 +1759,9 @@ describe('NewPlanSelection component', () => {
             name: 'buy_process.new_plan_selection.buy_credits',
           })
           .getAttribute('href'),
-      ).toBe(`/checkout/premium/${PLAN_TYPE.byCredit}?selected-plan=20223&buyType=1`),
+      ).toBe(
+        `/checkout/premium/${PLAN_TYPE.byCredit}?newPlanSelection=true&selected-plan=20223&buyType=1`,
+      ),
     );
   });
 
@@ -1772,7 +1779,7 @@ describe('NewPlanSelection component', () => {
           .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
           .getAttribute('href'),
       ).toBe(
-        '/checkout/premium/subscribers?selected-plan=10222&discountId=795&monthPlan=1&buyType=1',
+        '/checkout/premium/subscribers?newPlanSelection=true&selected-plan=10222&discountId=795&monthPlan=1&buyType=1',
       ),
     );
     expect(

@@ -77,6 +77,7 @@ const getCheckoutUrl = ({ search, selectedPlan, selectedPaymentFrequency, promoc
   const canApplyPromocodeToCheckout =
     !selectedPaymentFrequency?.id || selectedPaymentFrequency?.applyPromo;
 
+  params.set('newPlanSelection', 'true');
   params.set('selected-plan', selectedPlan.id);
   params.delete('promo-code');
   params.delete('Promo-code');

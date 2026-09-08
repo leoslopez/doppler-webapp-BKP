@@ -83,10 +83,13 @@ export const BuyProcessLayout = InjectAppServices(
     const { pathname } = useLocation();
     const query = useQueryParams();
     const buyType = query.get('buyType') ?? '1';
-    let steps = getSteps(buyType, appSessionRef.current.userData.user, pathname).filter(
-      (s) => s.visible === true,
-    );
     const isNewPlanSelection = pathname === '/new-plan-selection';
+    const isNewPlanSelectionFlow = isNewPlanSelection || query.get('newPlanSelection') === 'true';
+    let steps = getSteps(
+      buyType,
+      appSessionRef.current.userData.user,
+      isNewPlanSelectionFlow ? '/new-plan-selection' : pathname,
+    ).filter((s) => s.visible === true);
 
     useHideAppMenu();
 
@@ -94,7 +97,7 @@ export const BuyProcessLayout = InjectAppServices(
       return (
         <>
           <div className="dp-container">
-            <Stepper steps={steps} />
+            <Stepper steps={steps} mobileVariant />
             <hr />
           </div>
           {children}
@@ -104,7 +107,7 @@ export const BuyProcessLayout = InjectAppServices(
 
     return (
       <div className="dp-container">
-        <Stepper steps={steps} />
+        <Stepper steps={steps} mobileVariant />
         <hr />
         {children}
       </div>

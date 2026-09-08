@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { Stepper } from '.';
 import { PLAN_TYPE, URL_PLAN_TYPE } from '../../../doppler-types';
@@ -17,25 +17,33 @@ describe('Stepper', () => {
       {
         label: 'buy_process.stepper.conversation_plan_step',
         icon: '',
-        pathname: '/chat-plan',
+        pathname: '/checkout',
       },
       {
         label: 'buy_process.stepper.finalize_purchase_step',
         icon: '',
-        pathname: '/checkout',
+        pathname: '/checkout-summary',
       },
     ];
 
     // Act
-    render(
+    const { container } = render(
       <IntlProvider>
-        <Router initialEntries={[`/plan-selection/premium/${URL_PLAN_TYPE[PLAN_TYPE.byContact]}`]}>
+        <Router initialEntries={['/checkout']}>
           <Routes>
-            <Route path="/plan-selection/premium/:planType" element={<Stepper steps={steps} />} />
+            <Route path="/plan-selection/premium/:planType" element={<span>Plan selection</span>} />
+            <Route path="/checkout" element={<Stepper steps={steps} mobileVariant />} />
           </Routes>
         </Router>
         ,
       </IntlProvider>,
     );
+
+    expect(container.querySelector('.dp-new-plan-selection-stepper-summary')).toBeInTheDocument();
+    expect(container.querySelector('.dp-new-plan-selection-stepper-progress')).toBeInTheDocument();
+
+    fireEvent.click(container.querySelector('.dp-new-plan-selection-stepper-back'));
+
+    expect(container).toHaveTextContent('Plan selection');
   });
 });

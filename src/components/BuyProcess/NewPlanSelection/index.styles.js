@@ -1216,6 +1216,10 @@ export const NewPlanSelectionStyled = styled.div`
   }
 
   @media (max-width: 767px) {
+    .dp-new-plan-selection-back {
+      display: none;
+    }
+
     .dp-new-plan-selection-sticky-summary {
       left: 0;
       right: 0;
