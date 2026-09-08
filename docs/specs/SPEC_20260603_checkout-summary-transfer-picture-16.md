@@ -175,7 +175,7 @@ Para `billingCountry = 'ar'`, el bloque debe mostrar estos valores:
 
 - Banco: `BBVA BANCO FRANCES S.A.`
 - Titular: `Biside SRL`
-- CUIT: `30-7119594-1`
+- CUIT: `30-71159594-1`
 - CC: `090/408227/0`
 - CBU: `0170090920000040822703`
 - Alias: `BISIDE`

@@ -4,7 +4,7 @@ export const TRANSFER_BANKING_DETAILS_BY_COUNTRY = {
     alias: 'BISIDE',
     bank: 'BBVA BANCO FRANCES S.A.',
     cbu: '0170090920000040822703',
-    cuit: '30-7119594-1',
+    cuit: '30-71159594-1',
     holder: 'Biside SRL',
   },
   co: {
@@ -12,7 +12,7 @@ export const TRANSFER_BANKING_DETAILS_BY_COUNTRY = {
     alias: 'BISIDE',
     bank: 'BBVA BANCO FRANCES S.A.',
     cbu: '0170090920000040822703',
-    cuit: '30-7119594-1',
+    cuit: '30-71159594-1',
     holder: 'Biside SRL',
   },
   mx: {
@@ -20,7 +20,7 @@ export const TRANSFER_BANKING_DETAILS_BY_COUNTRY = {
     alias: 'BISIDE',
     bank: 'BBVA BANCO FRANCES S.A.',
     cbu: '0170090920000040822703',
-    cuit: '30-7119594-1',
+    cuit: '30-71159594-1',
     holder: 'Biside SRL',
   },
 };
