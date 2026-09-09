@@ -37,6 +37,19 @@
         "ignore": ["after-comment"]
       }
     ],
-    "unit-allowed-list": ["px", "em", "rem", "%", "s", "deg", "vh", "vm", "vmin", "vmax", "ms"]
+    "unit-allowed-list": [
+      "px",
+      "em",
+      "rem",
+      "%",
+      "s",
+      "deg",
+      "vh",
+      "vm",
+      "vmin",
+      "vmax",
+      "ms",
+      "fr"
+    ]
   }
 }

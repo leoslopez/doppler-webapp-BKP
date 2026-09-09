@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { PLAN_TYPE } from '../../../../doppler-types';
@@ -213,7 +213,7 @@ export const EmailsPlan = InjectAppServices(
       ],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       onStickySummaryChange?.(stickySummaryData);
     }, [onStickySummaryChange, stickySummaryData]);
 

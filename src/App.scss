@@ -143,3 +143,9 @@
 .dp-library .dp-line-through {
   text-decoration: line-through;
 }
+
+@media (max-width: 1199px) {
+  body .dp-container-steper.dp-new-plan-selection-stepper > ul.dp-steper {
+    display: none !important;
+  }
+}

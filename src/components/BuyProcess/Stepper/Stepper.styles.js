@@ -5,7 +5,7 @@ export const StepperContainer = styled.div`
     display: none;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1199px) {
     &.dp-new-plan-selection-stepper {
       box-sizing: border-box;
       display: block;
@@ -14,7 +14,7 @@ export const StepperContainer = styled.div`
       padding: 0 !important;
 
       .dp-steper {
-        display: none;
+        display: none !important;
       }
 
       .dp-new-plan-selection-stepper-summary {

@@ -1,6 +1,8 @@
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { PLAN_TYPE } from '../../../../doppler-types';
+import { StickyPlanSummaryContainer } from './index.styles';
 
 const numberFormatOptions = {
   maximumFractionDigits: 2,
@@ -34,8 +36,8 @@ export const StickyPlanSummary = ({ summary }) => {
       : 'buy_process.new_plan_selection.sticky_contacts_subtitle';
   const amountLabel = summary.amountLabel ?? summary.contactsLabel;
 
-  return (
-    <section className="dp-new-plan-selection-sticky-summary" data-testid="dp-sticky-plan-summary">
+  const stickySummary = (
+    <StickyPlanSummaryContainer data-testid="dp-sticky-plan-summary">
       <div className="dp-new-plan-selection-sticky-summary-content">
         <div className="dp-new-plan-selection-sticky-summary-copy">
           <h1 className="dp-new-plan-selection-sticky-summary-title">
@@ -142,6 +144,8 @@ export const StickyPlanSummary = ({ summary }) => {
           </a>
         )}
       </div>
-    </section>
+    </StickyPlanSummaryContainer>
   );
+
+  return createPortal(stickySummary, document.body);
 };

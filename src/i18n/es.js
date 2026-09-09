@@ -186,7 +186,7 @@ other {}}}}}}}}}}
       credits_option: '{credits}',
       credits_plan_description:
         'Una alternativa flexible si no quieres comprometerte con una suscripción mensual porque haces envíos más esporádicos. Los Créditos no vencen, se acumulan y bajan de precio cuantos más compres.',
-      credits_plan_title: 'Compra Créditos y úsalos cuando quieras',
+      credits_plan_title: 'Compra Créditos y úsalos cuando quieras',
       credits_price_per_credit: `Precio unitario US$${formattedNumberPlaceholder}`,
       credits_promocode_savings_text: 'Ahorras {percentage}% en esta compra',
       custom_price_value: 'A medida*',
@@ -291,7 +291,7 @@ other {}}}}}}}}}}
       subscription_label: 'Frecuencia de pago',
       subtitle: 'Selecciona el Plan que mejor se adapte a tu estrategia de Email Marketing. ¿Tienes dudas sobre qué Plan te conviene más? Contáctanos y te ayudamos a encontrarlo.',
       tailored_plan_disclaimer: '*Nuestro equipo te brindará información{br}y precios del Plan más conveniente.',
-      title: 'Elige el Plan ideal para hacer crecer tu negocio',
+      title: 'Elige el Plan ideal para tu negocio',
     },
     onsite_plan_title: `Plan OnSite`,
     payment_frequency: `Frecuencia de pago`,
@@ -570,6 +570,7 @@ other {}}}}}}}}}}
         unable_to_encrypt_field: '¡Ouch! No se pudo procesar la información de tu tarjeta. Inténtalo nuevamente.',
       },
       eprotect_placeholder_cvv: 'CVV',
+      eprotect_security_code: 'Código CVV',
       error: '¡Ouch! Esta Tarjeta de Crédito no permite cobros por parte de Doppler LLC. Comunícate con la empresa emisora para autorizarlos.',
       expiration_date: 'Fecha de vencimiento',
       first_data_error: {
@@ -669,6 +670,7 @@ other {}}}}}}}}}}
     discount_monthly: 'Mensual',
     discount_quarterly: 'Trimestral',
     discount_yearly: 'Anual',
+    email_marketing_plan_title: 'Tu plan de email marketing',
     enjoy_doppler_title: 'Disfruta Doppler',
     enjoying_benefits_doppler_title: 'Ya puedes empezar a disfrutar de los beneficios de tus planes de Doppler.',
     go_to_home_link: 'IR AL INICIO',

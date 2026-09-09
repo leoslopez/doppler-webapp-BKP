@@ -9,6 +9,9 @@ describe('AdditionalServices component', () => {
   it('should render component', () => {
     // Assert
     const dependencies = {
+      ipinfoClient: {
+        getCountryCode: async () => 'AR',
+      },
       appSessionRef: {
         current: {
           userData: {

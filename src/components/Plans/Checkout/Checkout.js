@@ -25,6 +25,7 @@ import { paymentFrequenciesListForLandingPacks } from '../../BuyProcess/LandingP
 import HeaderSection from '../../shared/HeaderSection/HeaderSection';
 import { GoBackButton } from '../../BuyProcess/NewPlanSelection/GoBackButton';
 import { NewPlanSelectionStyled } from '../../BuyProcess/NewPlanSelection/index.styles';
+import { CheckoutContainer } from './Checkout.styles';
 
 const checkoutSteps = {
   contactInformation: 'contact-information',
@@ -256,7 +257,7 @@ const Checkout = InjectAppServices(
       parseInt(buyType) === BUY_ECO_IA_PLAN;
 
     return (
-      <>
+      <CheckoutContainer>
         <HeaderSection>
           <div className="col-sm-12 col-md-12 col-lg-12">
             <NewPlanSelectionStyled>
@@ -420,7 +421,7 @@ const Checkout = InjectAppServices(
             </div>
           </div>
         </div>
-      </>
+      </CheckoutContainer>
     );
   },
 );

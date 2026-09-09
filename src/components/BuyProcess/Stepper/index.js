@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useIsMobile } from '../../../hooks/useIsMobile';
 import { StepperContainer } from './Stepper.styles';
 
 export const Stepper = ({ steps, mobileVariant = false }) => {
@@ -14,6 +15,7 @@ export const Stepper = ({ steps, mobileVariant = false }) => {
   const currentStep = steps[currentStepIndex];
   const nextStep = steps[currentStepIndex + 1];
   const previousStep = steps[currentStepIndex - 1];
+  const isMobileViewport = useIsMobile();
 
   const goToPreviousStep = () => {
     if (previousStep) {
@@ -61,17 +63,19 @@ export const Stepper = ({ steps, mobileVariant = false }) => {
           </span>
         </div>
       )}
-      <ul className="dp-steper">
-        {steps.map((step, index) => (
-          <li key={`step-${index}`} className={`${index <= activeStepIndex ? 'active' : ''}`}>
-            {pathname.includes(step.pathname) && <span className="step-active" />}
-            <span>
-              <span className={step.icon} />
-              {_(step.label)}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {!isMobileViewport && (
+        <ul className="dp-steper">
+          {steps.map((step, index) => (
+            <li key={`step-${index}`} className={`${index <= activeStepIndex ? 'active' : ''}`}>
+              {pathname.includes(step.pathname) && <span className="step-active" />}
+              <span>
+                <span className={step.icon} />
+                {_(step.label)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </StepperContainer>
   );
 };

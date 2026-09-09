@@ -51,7 +51,7 @@ export const getEprotectConfig = (payframeClientCallback, intl) => {
     label: {
       accountNumber: _('checkoutProcessForm.payment_method.credit_card'),
       expDate: _('checkoutProcessForm.payment_method.expiration_date'),
-      cvv: _('checkoutProcessForm.payment_method.security_code'),
+      cvv: _('checkoutProcessForm.payment_method.eprotect_security_code'),
     },
     customErrorMessages: {
       // Invalid account number group (871-876)

@@ -257,7 +257,9 @@ export const NewPlanSelection = InjectAppServices(
               <GoBackButton goBackUrl="/my-plan" />
             </div>
             <h2 className="dp-first-order-title dp-new-plan-selection-title">
-              <FormattedMessage id="buy_process.new_plan_selection.title" />
+              <span className="dp-new-plan-selection-title-copy">
+                <FormattedMessage id="buy_process.new_plan_selection.title" />
+              </span>
               <span className="dpicon iconapp-email-alert" />
             </h2>
             <p className="dp-new-plan-selection-subtitle">

@@ -1046,11 +1046,13 @@ describe('NewPlanSelection component', () => {
     await waitFor(() =>
       expect(within(getEmailsPlanSection()).getByRole('textbox')).toHaveValue('EMAILS1500000'),
     );
-    expect(
-      within(getEmailsPlanSection()).getByText(
-        'checkoutProcessForm.purchase_summary.promocode_can_not_apply_error_message',
-      ),
-    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        within(getEmailsPlanSection()).getByText(
+          'checkoutProcessForm.purchase_summary.promocode_can_not_apply_error_message',
+        ),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('should show info message when user manually applies a promocode that is not valid for credits', async () => {

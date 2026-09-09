@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import SafeRedirect from '../../../SafeRedirect';
 import { useLinkedinInsightTag } from '../../../../hooks/useLinkedingInsightTag';
-import HeaderSection from '../../../shared/HeaderSection/HeaderSection';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { paymentType } from '../PaymentMethod/PaymentMethod';
@@ -38,7 +37,7 @@ import { AddOnPlanInformation } from './AddOnPlanInformation';
 import { useAddOnPlans } from '../../../../hooks/useFetchAddOnPlans';
 import { AddOnsSection } from '../../../BuyProcess/NewPlanSelection/AddOnsSection';
 import { NewPlanSelectionStyled } from '../../../BuyProcess/NewPlanSelection/index.styles';
-import { CheckoutSummaryLayout } from './CheckoutSummary.styles';
+import { CheckoutSummaryHeader, CheckoutSummaryLayout } from './CheckoutSummary.styles';
 
 const MIN_ADD_ONS_PANEL_HEIGHT = 640;
 
@@ -239,7 +238,14 @@ const PlanMarketingInformation = ({
 
   return (
     <>
-      <h4 className="dp-tit-plan-purchased">{_(`checkoutProcessSuccess.plan_type_title`)}</h4>
+      <h4 className="dp-tit-plan-purchased">
+        <span className="checkout-summary-desktop-title">
+          {_(`checkoutProcessSuccess.plan_type_title`)}
+        </span>
+        <span className="checkout-summary-mobile-title">
+          {_(`checkoutProcessSuccess.email_marketing_plan_title`)}
+        </span>
+      </h4>
       <ul className="dp-purchase-summary-list">
         <li>
           <span>{_(`checkoutProcessSuccess.plan_type`)}</span>
@@ -617,9 +623,9 @@ export const CheckoutSummary = InjectAppServices(
           <title>{_('checkoutProcessSuccess.purchase_finished_title')}</title>
           <meta name="checkout-success" />
         </Helmet>
-        <HeaderSection>
+        <CheckoutSummaryHeader>
           <CheckoutSummaryTitle title={title} hideBreadcrumb={true} />
-        </HeaderSection>
+        </CheckoutSummaryHeader>
         <section className="dp-container">
           <CheckoutSummaryLayout>
             <div className="checkout-summary-main m-b-24" ref={checkoutSummaryMainRef}>
