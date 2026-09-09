@@ -123,4 +123,48 @@ describe('TypeformSurvey', () => {
     expect(getSurveyFormStatusMock).toHaveBeenCalled();
     expect(await screen.findByTestId('empty-fragment')).toBeInTheDocument();
   });
+
+  it('should not render TypeformSurvey component when the survey is disabled by env var', async () => {
+    // Arrange
+    const originalValue = process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED;
+    process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED = 'false';
+
+    const getSurveyFormStatusMock = jest.fn(async () => ({
+      success: true,
+      value: { surveyFormCompleted: false },
+    }));
+    const forcedServices = {
+      appSessionRef: {
+        current: {
+          userData: {
+            user: {
+              lang: 'es',
+              fullname: 'Junior Campos',
+              email: 'jcampos@makingsense.com',
+              plan: {
+                isFreeAccount: true,
+              },
+            },
+          },
+        },
+      },
+      dopplerLegacyClient: {
+        getSurveyFormStatus: getSurveyFormStatusMock,
+      },
+    };
+
+    // Act
+    render(
+      <AppServicesProvider forcedServices={forcedServices}>
+        <TypeformSurvey />
+      </AppServicesProvider>,
+    );
+
+    // Assert
+    expect(getSurveyFormStatusMock).toHaveBeenCalled();
+    expect(await screen.findByTestId('empty-fragment')).toBeInTheDocument();
+
+    // Cleanup
+    process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED = originalValue;
+  });
 });
