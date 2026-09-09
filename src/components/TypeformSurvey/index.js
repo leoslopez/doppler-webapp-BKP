@@ -62,8 +62,9 @@ export const TypeformSurvey = InjectAppServices(
     }, [dopplerLegacyClient]);
 
     const { isFreeAccount: isTrial } = appSessionRef.current.userData.user.plan;
+    const isSurveyEnabled = process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED !== 'false';
 
-    if (loading || surveyFormCompleted || !isTrial || isClosed) {
+    if (loading || surveyFormCompleted || !isTrial || isClosed || !isSurveyEnabled) {
       return <div data-testid="empty-fragment" />;
     }
 

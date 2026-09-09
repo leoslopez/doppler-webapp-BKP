@@ -4,6 +4,17 @@ import { TypeformSurvey } from '.';
 import { AppServicesProvider } from '../../services/pure-di';
 
 describe('TypeformSurvey', () => {
+  let originalSurveyEnabledValue;
+
+  beforeEach(() => {
+    originalSurveyEnabledValue = process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED;
+    process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED = 'true';
+  });
+
+  afterEach(() => {
+    process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED = originalSurveyEnabledValue;
+  });
+
   it('should render TypeformSurvey component when the user completes the survey', async () => {
     // Arrange
     const getSurveyFormStatusMock = jest.fn(async () => ({
@@ -120,6 +131,46 @@ describe('TypeformSurvey', () => {
     // Assert
     expect(screen.getByTestId('empty-fragment')).toBeInTheDocument();
 
+    expect(getSurveyFormStatusMock).toHaveBeenCalled();
+    expect(await screen.findByTestId('empty-fragment')).toBeInTheDocument();
+  });
+
+  it('should not render TypeformSurvey component when the survey is disabled by env var', async () => {
+    // Arrange
+    process.env.REACT_APP_TYPEFORM_SURVEY_ENABLED = 'false';
+
+    const getSurveyFormStatusMock = jest.fn(async () => ({
+      success: true,
+      value: { surveyFormCompleted: false },
+    }));
+    const forcedServices = {
+      appSessionRef: {
+        current: {
+          userData: {
+            user: {
+              lang: 'es',
+              fullname: 'Junior Campos',
+              email: 'jcampos@makingsense.com',
+              plan: {
+                isFreeAccount: true,
+              },
+            },
+          },
+        },
+      },
+      dopplerLegacyClient: {
+        getSurveyFormStatus: getSurveyFormStatusMock,
+      },
+    };
+
+    // Act
+    render(
+      <AppServicesProvider forcedServices={forcedServices}>
+        <TypeformSurvey />
+      </AppServicesProvider>,
+    );
+
+    // Assert
     expect(getSurveyFormStatusMock).toHaveBeenCalled();
     expect(await screen.findByTestId('empty-fragment')).toBeInTheDocument();
   });
