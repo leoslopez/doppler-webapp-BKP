@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import HeaderSection from '../../shared/HeaderSection/HeaderSection';
+
+export const CheckoutHeader = styled(HeaderSection)`
+  @media (max-width: 767px) {
+    padding-top: 32px;
+  }
+`;
 
 export const CheckoutContainer = styled.div`
   @media (max-width: 767px) {
