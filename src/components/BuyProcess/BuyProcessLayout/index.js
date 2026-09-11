@@ -6,6 +6,7 @@ import {
   BUY_ONSITE_PLAN,
   BUY_PUSH_NOTIFICATION_PLAN,
 } from '../../../doppler-types';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { InjectAppServices } from '../../../services/pure-di';
@@ -86,6 +87,14 @@ export const BuyProcessLayout = InjectAppServices(
       (s) => s.visible === true,
     );
     const isNewPlanSelection = pathname === '/new-plan-selection';
+
+    useEffect(() => {
+      window.displayDopplerNavBar?.(!isNewPlanSelection);
+
+      return () => {
+        window.displayDopplerNavBar?.(true);
+      };
+    }, [isNewPlanSelection]);
 
     if (isNewPlanSelection) {
       return (
