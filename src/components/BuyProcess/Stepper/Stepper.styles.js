@@ -24,7 +24,7 @@ export const StepperContainer = styled.div`
         display: grid;
         grid-template-columns: 16px minmax(0, 1fr) 68px;
         height: 100%;
-        padding: 20px;
+        padding: 28px 20px 12px;
       }
 
       .dp-new-plan-selection-stepper-summary span {
@@ -33,12 +33,14 @@ export const StepperContainer = styled.div`
       }
 
       .dp-new-plan-selection-stepper-back {
+        align-self: start;
         background: transparent;
         border: 0;
         box-sizing: border-box;
         cursor: pointer;
         height: 24px;
         margin: 0;
+        margin-top: 10px;
         min-width: 0 !important;
         padding: 0;
         position: relative;
@@ -49,12 +51,12 @@ export const StepperContainer = styled.div`
         border-bottom: 2px solid #666;
         border-left: 2px solid #666;
         content: '';
-        height: 7px;
-        left: 4px;
+        height: 9px;
+        left: 3px;
         position: absolute;
-        top: 8px;
+        top: 7px;
         transform: rotate(45deg);
-        width: 7px;
+        width: 9px;
       }
 
       .dp-new-plan-selection-stepper-back:focus-visible {

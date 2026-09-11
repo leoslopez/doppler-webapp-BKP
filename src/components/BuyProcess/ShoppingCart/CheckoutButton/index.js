@@ -97,7 +97,8 @@ export const CheckoutButton = InjectAppServices(
         <button
           type="button"
           className={
-            'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
+            'dp-button button-big primary-green dp-checkout-buy-inline' +
+            (status === SAVING ? ' button--loading' : '')
           }
           disabled={disabledBuy}
           onClick={proceedToBuy}
@@ -105,6 +106,18 @@ export const CheckoutButton = InjectAppServices(
         >
           {_(keyTextButton)}
         </button>
+        <div className="dp-checkout-buy-mobile-sticky">
+          <button
+            type="button"
+            className={
+              'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
+            }
+            disabled={disabledBuy}
+            onClick={proceedToBuy}
+          >
+            {_(keyTextButton)}
+          </button>
+        </div>
         <button type="button" className="dp-button button-big dp-secure-payment">
           <span className="ms-icon dpicon iconapp-padlock"></span>
           {_('checkoutProcessForm.purchase_summary.secure_payment_message')}

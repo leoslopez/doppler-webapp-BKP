@@ -1237,6 +1237,10 @@ export const NewPlanSelectionStyled = styled.div`
     /* stylelint-disable-next-line selector-descendant-combinator-no-non-space */
     .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits)
       .dp-new-plan-selection-price {
+      display: block;
+    }
+
+    .dp-new-plan-selection-price-cta {
       display: none;
     }
 
@@ -1404,13 +1408,20 @@ export const NewPlanSelectionStyled = styled.div`
     .dp-new-plan-selection-included-features-grid {
       gap: 16px;
       grid-template-columns: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .dp-new-plan-selection-included-features-subtitle {
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .dp-new-plan-selection-features-modal.modal-content--large {
       max-height: 90vh;
       max-width: calc(100% - 32px);
       overflow-y: auto;
-      padding: 22px 16px 18px;
+      padding: 34px 16px 18px;
     }
 
     .dp-new-plan-selection-features-modal .modal-title {

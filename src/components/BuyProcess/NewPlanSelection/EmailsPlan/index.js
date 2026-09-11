@@ -411,17 +411,24 @@ export const EmailsPlan = InjectAppServices(
 
             {shouldUseAdvisorCta ? (
               <Link
-                className="dp-button button-medium primary-green dp-new-plan-selection-contact-advisor-cta"
+                className="dp-button button-medium primary-green dp-new-plan-selection-contact-advisor-cta dp-new-plan-selection-price-cta"
                 to="/upgrade-suggestion-form"
               >
                 <FormattedMessage id="buy_process.new_plan_selection.contact_advisor_cta" />
               </Link>
             ) : canChoosePlan ? (
-              <a className="dp-button button-medium primary-green" href={checkoutUrl}>
+              <a
+                className="dp-button button-medium primary-green dp-new-plan-selection-price-cta"
+                href={checkoutUrl}
+              >
                 <FormattedMessage id="buy_process.new_plan_selection.choose_plan" />
               </a>
             ) : (
-              <button type="button" className="dp-button button-medium primary-green" disabled>
+              <button
+                type="button"
+                className="dp-button button-medium primary-green dp-new-plan-selection-price-cta"
+                disabled
+              >
                 <FormattedMessage id="buy_process.new_plan_selection.choose_plan" />
               </button>
             )}

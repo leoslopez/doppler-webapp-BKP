@@ -3,12 +3,56 @@ import HeaderSection from '../../shared/HeaderSection/HeaderSection';
 
 export const CheckoutHeader = styled(HeaderSection)`
   @media (max-width: 767px) {
-    padding-top: 32px;
+    padding: 16px 0 12px;
+
+    h2.dp-first-order-title {
+      font-size: 22px !important;
+      line-height: 1.2;
+      margin: 0 !important;
+    }
   }
 `;
 
 export const CheckoutContainer = styled.div`
+  .dp-checkout-buy-mobile-sticky {
+    display: none;
+  }
+
+  @media (max-width: 1199px) {
+    padding-bottom: 76px;
+
+    .dp-checkout-buy-inline {
+      display: none !important;
+    }
+
+    .dp-checkout-buy-mobile-sticky {
+      background: #fff;
+      border-top: 1px solid #e5e5e5;
+      bottom: 0;
+      box-sizing: border-box;
+      display: block !important;
+      left: 0;
+      margin: 0 !important;
+      padding: 12px 18px !important;
+      position: fixed;
+      right: 0;
+      z-index: 60;
+    }
+
+    .dp-checkout-buy-mobile-sticky .dp-button {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 767px) {
+    .dp-checkout-back-section {
+      display: none;
+    }
+
+    .dp-checkout-back-button {
+      display: none;
+    }
+
     .dp-wrapper-payment-process,
     .dp-wrapper-payment-process .dp-form-payment-method,
     .dp-wrapper-payment-process .dp-form-fields,

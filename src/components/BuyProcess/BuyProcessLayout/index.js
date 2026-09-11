@@ -11,6 +11,7 @@ import { useHideAppMenu } from '../../../hooks/useHideAppMenu';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { InjectAppServices } from '../../../services/pure-di';
 import { Stepper } from '../Stepper';
+import { BuyProcessLayoutContainer } from './BuyProcessLayout.styles';
 
 export const getSteps = (buyType, user, pathname) => {
   const currentPathname = pathname.includes('/new-plan-selection')
@@ -95,22 +96,26 @@ export const BuyProcessLayout = InjectAppServices(
 
     if (isNewPlanSelection) {
       return (
-        <>
-          <div className="dp-container">
-            <Stepper steps={steps} mobileVariant />
+        <BuyProcessLayoutContainer>
+          <div className="dp-container dp-buy-process-stepper-wrapper">
+            <Stepper steps={steps} mobileVariant firstStepBackUrl="/my-plan" />
             <hr />
           </div>
           {children}
-        </>
+        </BuyProcessLayoutContainer>
       );
     }
 
     return (
-      <div className="dp-container">
-        <Stepper steps={steps} mobileVariant />
-        <hr />
-        {children}
-      </div>
+      <BuyProcessLayoutContainer>
+        <div className="dp-container">
+          <div className="dp-buy-process-stepper-wrapper">
+            <Stepper steps={steps} mobileVariant />
+            <hr />
+          </div>
+          {children}
+        </div>
+      </BuyProcessLayoutContainer>
     );
   },
 );

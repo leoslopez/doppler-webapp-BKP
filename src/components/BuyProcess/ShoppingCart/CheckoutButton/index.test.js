@@ -156,6 +156,26 @@ describe('BuyButton component', () => {
     expect(getBuyButton()).toBeEnabled();
   });
 
+  it('should render the mobile sticky buy button', () => {
+    const { container } = render(
+      <AppServicesProvider forcedServices={getFakePurchase(true).dependencies}>
+        <IntlProvider>
+          <Router initialEntries={['/checkout/premium/subscribers?selected-plan=1']}>
+            <CheckoutButton
+              canBuy
+              keyTextButton="buy_process.buy_now_title"
+              planId="1"
+              total={1_000}
+              paymentMethod={paymentType.creditCard}
+            />
+          </Router>
+        </IntlProvider>
+      </AppServicesProvider>,
+    );
+
+    expect(container.querySelector('.dp-checkout-buy-mobile-sticky')).toBeInTheDocument();
+  });
+
   it('should complete the purchase process satisfactorily with discount and promocode', async () => {
     //Arrange
     const props = {

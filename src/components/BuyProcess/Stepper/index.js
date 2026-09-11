@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useIsMobile } from '../../../hooks/useIsMobile';
 import { StepperContainer } from './Stepper.styles';
 
-export const Stepper = ({ steps, mobileVariant = false }) => {
+export const Stepper = ({ steps, mobileVariant = false, firstStepBackUrl }) => {
   const intl = useIntl();
   const _ = (id, values) => intl.formatMessage({ id: id }, values);
   const { pathname, search } = useLocation();
@@ -23,7 +23,7 @@ export const Stepper = ({ steps, mobileVariant = false }) => {
       return;
     }
 
-    navigate(-1);
+    navigate(firstStepBackUrl ?? -1);
   };
   return (
     <StepperContainer
@@ -88,5 +88,6 @@ Stepper.propTypes = {
       pathname: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  firstStepBackUrl: PropTypes.string,
   mobileVariant: PropTypes.bool,
 };

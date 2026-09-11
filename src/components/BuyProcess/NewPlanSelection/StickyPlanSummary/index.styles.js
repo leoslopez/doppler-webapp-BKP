@@ -82,6 +82,11 @@ export const StickyPlanSummaryContainer = styled.section`
       padding: 8px 18px;
     }
 
+    .dp-new-plan-selection-sticky-summary-copy,
+    .dp-new-plan-selection-sticky-summary-discount {
+      display: none !important;
+    }
+
     .dp-new-plan-selection-sticky-summary-title,
     .dp-new-plan-selection-sticky-summary-price {
       font-size: 18px;

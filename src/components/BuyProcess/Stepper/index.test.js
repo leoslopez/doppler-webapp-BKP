@@ -69,4 +69,24 @@ describe('Stepper', () => {
 
     window.matchMedia = originalMatchMedia;
   });
+
+  it('should navigate to the configured destination when returning from the first step', () => {
+    const { container } = render(
+      <IntlProvider>
+        <Router initialEntries={['/plan-selection/premium/by-contacts']}>
+          <Routes>
+            <Route
+              path="/plan-selection/premium/:planType"
+              element={<Stepper steps={steps} mobileVariant firstStepBackUrl="/my-plan" />}
+            />
+            <Route path="/my-plan" element={<span>My plan</span>} />
+          </Routes>
+        </Router>
+      </IntlProvider>,
+    );
+
+    fireEvent.click(container.querySelector('.dp-new-plan-selection-stepper-back'));
+
+    expect(container).toHaveTextContent('My plan');
+  });
 });

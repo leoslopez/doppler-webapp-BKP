@@ -419,6 +419,19 @@ const Checkout = InjectAppServices(
               )}
             </div>
           </div>
+          <div className="dp-rowflex dp-checkout-back-section">
+            <div className="col-lg-12 col-md-6 col-sm-12 m-b-24"></div>
+            <div className="col-sm-12 m-b-24">
+              <hr className="dp-h-divider" />
+              <button
+                type="button"
+                className="dp-button button-medium primary-grey m-t-30 m-r-24 dp-checkout-back-button"
+                onClick={() => window.history.back()}
+              >
+                {_('checkoutProcessForm.button_back')}
+              </button>
+            </div>
+          </div>
         </div>
       </CheckoutContainer>
     );
