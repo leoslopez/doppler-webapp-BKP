@@ -89,10 +89,26 @@ export const BuyProcessLayout = InjectAppServices(
     const isNewPlanSelection = pathname === '/new-plan-selection';
 
     useEffect(() => {
-      window.displayDopplerNavBar?.(!isNewPlanSelection);
+      const setNavBarVisibility = (visible) => {
+        if (typeof window.displayDopplerNavBar === 'function') {
+          window.displayDopplerNavBar(visible);
+          return true;
+        }
+        return false;
+      };
+
+      let intervalId;
+      if (!setNavBarVisibility(!isNewPlanSelection)) {
+        intervalId = setInterval(() => {
+          if (setNavBarVisibility(!isNewPlanSelection)) {
+            clearInterval(intervalId);
+          }
+        }, 200);
+      }
 
       return () => {
-        window.displayDopplerNavBar?.(true);
+        clearInterval(intervalId);
+        setNavBarVisibility(true);
       };
     }, [isNewPlanSelection]);
 
