@@ -6,11 +6,12 @@ export const StepperContainer = styled.div`
   }
 
   @media (max-width: 1199px) {
-    &.dp-new-plan-selection-stepper {
+    &&&.hero-banner.dp-new-plan-selection-stepper {
       box-sizing: border-box;
       display: block;
-      height: 108px;
+      height: 92px !important;
       margin: 0;
+      min-height: 0 !important;
       padding: 0 !important;
 
       .dp-steper {
@@ -24,7 +25,7 @@ export const StepperContainer = styled.div`
         display: grid;
         grid-template-columns: 16px minmax(0, 1fr) 68px;
         height: 100%;
-        padding: 28px 20px 12px;
+        padding: 12px 20px !important;
       }
 
       .dp-new-plan-selection-stepper-summary span {

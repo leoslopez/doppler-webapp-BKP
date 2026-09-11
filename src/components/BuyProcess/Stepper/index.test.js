@@ -89,4 +89,18 @@ describe('Stepper', () => {
 
     expect(container).toHaveTextContent('My plan');
   });
+
+  it('should show the final step subtitle on the last step', () => {
+    const { container } = render(
+      <IntlProvider>
+        <Router initialEntries={['/checkout-summary']}>
+          <Routes>
+            <Route path="/checkout-summary" element={<Stepper steps={steps} mobileVariant />} />
+          </Routes>
+        </Router>
+      </IntlProvider>,
+    );
+
+    expect(container).toHaveTextContent('buy_process.stepper.final_step');
+  });
 });

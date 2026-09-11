@@ -86,6 +86,7 @@ export const BuyProcessLayout = InjectAppServices(
     const buyType = query.get('buyType') ?? '1';
     const isNewPlanSelection = pathname === '/new-plan-selection';
     const isNewPlanSelectionFlow = isNewPlanSelection || query.get('newPlanSelection') === 'true';
+    const isTrialAccount = appSessionRef.current.userData.user.plan?.isFreeAccount === true;
     let steps = getSteps(
       buyType,
       appSessionRef.current.userData.user,
@@ -96,7 +97,7 @@ export const BuyProcessLayout = InjectAppServices(
 
     if (isNewPlanSelection) {
       return (
-        <BuyProcessLayoutContainer>
+        <BuyProcessLayoutContainer className={isTrialAccount ? 'dp-buy-process-trial' : ''}>
           <div className="dp-container dp-buy-process-stepper-wrapper">
             <Stepper steps={steps} mobileVariant firstStepBackUrl="/my-plan" />
             <hr />
@@ -107,7 +108,7 @@ export const BuyProcessLayout = InjectAppServices(
     }
 
     return (
-      <BuyProcessLayoutContainer>
+      <BuyProcessLayoutContainer className={isTrialAccount ? 'dp-buy-process-trial' : ''}>
         <div className="dp-container">
           <div className="dp-buy-process-stepper-wrapper">
             <Stepper steps={steps} mobileVariant />

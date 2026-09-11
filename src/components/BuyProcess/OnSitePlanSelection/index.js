@@ -186,19 +186,19 @@ export const OnSitePlansSelection = InjectAppServices(
             <div className="col-md-12 col-lg-8 m-b-24">
               <OnSitePlanInformation />
               <section className="m-t-42">
-                <div className="dp-rowflex">
+                <S.ImpressionsQuestion className="dp-rowflex">
                   <h3 className="dp-second-order-title">
-                    {_('onsite_selection.how_many_prints_need_message')}
+                    {_('onsite_selection.how_many_prints_need_message')}{' '}
+                    <S.TooltipPanel>
+                      <span className="dp-tooltip-container onsite-tooltip-container">
+                        <span className="ms-icon icon-header-help"></span>
+                        <span className="dp-tooltip-top">
+                          <span>{_('onsite_selection.info_tooltip')}</span>
+                        </span>
+                      </span>
+                    </S.TooltipPanel>
                   </h3>
-                  <S.TooltipPanel>
-                    <div className="dp-tooltip-container onsite-tooltip-container">
-                      <span className="ms-icon icon-header-help"></span>
-                      <div className="dp-tooltip-top">
-                        <span>{_('onsite_selection.info_tooltip')}</span>
-                      </div>
-                    </div>
-                  </S.TooltipPanel>
-                </div>
+                </S.ImpressionsQuestion>
 
                 <Slider
                   items={addOnPlansValues}

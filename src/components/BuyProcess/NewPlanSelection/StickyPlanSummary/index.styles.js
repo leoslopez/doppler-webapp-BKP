@@ -1,21 +1,14 @@
 import styled from 'styled-components';
+import { StickyFooterAction } from '../../StickyFooterAction';
 
-export const StickyPlanSummaryContainer = styled.section`
+export const StickyPlanSummaryContainer = styled(StickyFooterAction)`
   background: #f5f5f5;
   border-top: 1px solid #e5e5e5;
-  bottom: 0;
-  box-sizing: border-box;
   display: block;
   height: auto !important;
-  left: 0;
-  margin: 0;
   max-height: none !important;
   min-height: 0;
   overflow: visible !important;
-  position: fixed;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
 
   .dp-new-plan-selection-sticky-summary-content {
     align-items: center;
@@ -78,8 +71,15 @@ export const StickyPlanSummaryContainer = styled.section`
   }
 
   @media (max-width: 767px) {
+    background: #f5f5f5 !important;
+    height: var(--dp-buy-process-footer-height, 80px) !important;
+
     .dp-new-plan-selection-sticky-summary-content {
-      padding: 8px 18px;
+      align-items: center;
+      box-sizing: border-box;
+      display: flex;
+      height: 100%;
+      padding: 0 18px;
     }
 
     .dp-new-plan-selection-sticky-summary-copy,

@@ -373,10 +373,10 @@ describe('NewPlanSelection component', () => {
     expect(screen.queryByText(/tipo de plan/i)).not.toBeInTheDocument();
     await waitFor(() => expect(screen.getByTestId('dp-sticky-plan-summary')).toBeInTheDocument());
     expect(
-      screen.getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' }),
+      screen.getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('buy_process.new_plan_selection.sticky_default_cta'),
+      screen.getByText('buy_process.new_plan_selection.sticky_choose_plan_cta'),
     ).toBeInTheDocument();
 
     expect(
@@ -853,7 +853,7 @@ describe('NewPlanSelection component', () => {
       );
       expect(
         screen
-          .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' })
+          .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' })
           .getAttribute('href'),
       ).toContain('PromoCode=DOPPLER50X6');
     } finally {
@@ -878,7 +878,7 @@ describe('NewPlanSelection component', () => {
 
     await waitFor(() => {
       const choosePlanHref = screen
-        .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
+        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' })
         .getAttribute('href');
 
       expect(choosePlanHref).toContain('discountId=797');
@@ -1148,7 +1148,7 @@ describe('NewPlanSelection component', () => {
 
     await waitFor(() => {
       const choosePlanHref = screen
-        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' })
+        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' })
         .getAttribute('href');
       expect(choosePlanHref).not.toContain('promo-code=');
       expect(choosePlanHref).not.toContain('Promo-code=');
@@ -1162,7 +1162,7 @@ describe('NewPlanSelection component', () => {
 
     await waitFor(() => {
       const choosePlanHref = screen
-        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' })
+        .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
         .getAttribute('href');
       expect(choosePlanHref).not.toContain('promo-code=');
       expect(choosePlanHref).not.toContain('Promo-code=');
@@ -1209,7 +1209,7 @@ describe('NewPlanSelection component', () => {
     await waitFor(() =>
       expect(
         screen
-          .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' })
+          .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' })
           .getAttribute('href'),
       ).toContain('selected-plan=10223'),
     );
@@ -1262,7 +1262,7 @@ describe('NewPlanSelection component', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('link', {
-        name: 'buy_process.new_plan_selection.choose_plan',
+        name: 'buy_process.new_plan_selection.sticky_choose_plan_cta',
       }),
     ).toHaveAttribute(
       'href',
@@ -1375,12 +1375,12 @@ describe('NewPlanSelection component', () => {
     expect(getContactsSelect()).toHaveValue('1');
     expect(
       within(screen.getByTestId('dp-sticky-plan-summary')).queryByRole('link', {
-        name: 'buy_process.new_plan_selection.sticky_default_cta',
+        name: 'buy_process.new_plan_selection.sticky_choose_plan_cta',
       }),
     ).not.toBeInTheDocument();
     expect(
       within(screen.getByTestId('dp-sticky-plan-summary')).getByRole('button', {
-        name: 'buy_process.new_plan_selection.sticky_default_cta',
+        name: 'buy_process.new_plan_selection.sticky_choose_plan_cta',
       }),
     ).toBeDisabled();
     expect(
@@ -1441,7 +1441,7 @@ describe('NewPlanSelection component', () => {
     expect(getContactsSelect()).toHaveValue('1');
     expect(
       screen
-        .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
+        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_choose_plan_cta' })
         .getAttribute('href'),
     ).toContain('selected-plan=10223');
   });
@@ -1947,7 +1947,7 @@ describe('NewPlanSelection component', () => {
         .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
         .getAttribute('href');
       const stickyCtaHref = screen
-        .getByRole('link', { name: 'buy_process.new_plan_selection.sticky_default_cta' })
+        .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
         .getAttribute('href');
       expect(stickyCtaHref).toBe(choosePlanHref);
     });

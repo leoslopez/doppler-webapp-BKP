@@ -22,6 +22,16 @@
   color: #61dafb;
 }
 
+:root {
+  --dp-buy-process-menu-height: 70px;
+  --dp-buy-process-trial-menu-height: 104px;
+  --dp-buy-process-stepper-height: 54px;
+  --dp-buy-process-sticky-action-height: 76px;
+  --dp-buy-process-stepper-z-index: 40;
+  --dp-buy-process-menu-z-index: 50;
+  --dp-buy-process-sticky-action-z-index: 60;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -51,17 +61,17 @@
 
 @media (max-width: 1199px) {
   .dp-app-container {
-    padding-top: 54px;
+    padding-top: var(--dp-buy-process-menu-height);
   }
 
   #doppler-menu-mfe {
     background: #fff;
-    height: 54px;
+    height: var(--dp-buy-process-menu-height);
     left: 0;
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 50;
+    z-index: var(--dp-buy-process-menu-z-index);
   }
 }
 

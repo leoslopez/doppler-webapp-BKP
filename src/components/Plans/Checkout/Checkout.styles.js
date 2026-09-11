@@ -3,7 +3,9 @@ import HeaderSection from '../../shared/HeaderSection/HeaderSection';
 
 export const CheckoutHeader = styled(HeaderSection)`
   @media (max-width: 767px) {
-    padding: 16px 0 12px;
+    &.hero-banner {
+      padding: 16px 0 12px;
+    }
 
     h2.dp-first-order-title {
       font-size: 22px !important;
@@ -14,29 +16,15 @@ export const CheckoutHeader = styled(HeaderSection)`
 `;
 
 export const CheckoutContainer = styled.div`
-  .dp-checkout-buy-mobile-sticky {
-    display: none;
-  }
-
   @media (max-width: 1199px) {
-    padding-bottom: 76px;
+    padding-bottom: var(--dp-buy-process-sticky-action-height);
 
     .dp-checkout-buy-inline {
       display: none !important;
     }
 
     .dp-checkout-buy-mobile-sticky {
-      background: #fff;
-      border-top: 1px solid #e5e5e5;
-      bottom: 0;
-      box-sizing: border-box;
-      display: block !important;
-      left: 0;
-      margin: 0 !important;
-      padding: 12px 18px !important;
-      position: fixed;
-      right: 0;
-      z-index: 60;
+      padding: 12px 18px;
     }
 
     .dp-checkout-buy-mobile-sticky .dp-button {
@@ -45,6 +33,10 @@ export const CheckoutContainer = styled.div`
   }
 
   @media (max-width: 767px) {
+    .dp-wrapper-payment-process .dp-edit-invoice-recipients {
+      white-space: nowrap;
+    }
+
     .dp-checkout-back-section {
       display: none;
     }

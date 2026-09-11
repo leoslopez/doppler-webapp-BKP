@@ -8,6 +8,7 @@ import { BUY_MARKETING_PLAN, PaymentMethodType } from '../../../../doppler-types
 import { ACCOUNT_TYPE } from '../../../../hooks/useUserTypeAsQueryParam';
 import { getCheckoutErrorMesage } from '../utils';
 import { FormattedMessageMarkdown } from '../../../../i18n/FormattedMessageMarkdown';
+import { StickyFooterAction } from '../../StickyFooterAction';
 
 export const DELAY_BEFORE_REDIRECT_TO_SUMMARY = 3000;
 const HAS_ERROR = 'HAS_ERROR';
@@ -106,7 +107,7 @@ export const CheckoutButton = InjectAppServices(
         >
           {_(keyTextButton)}
         </button>
-        <div className="dp-checkout-buy-mobile-sticky">
+        <StickyFooterAction className="dp-checkout-buy-mobile-sticky">
           <button
             type="button"
             className={
@@ -117,7 +118,7 @@ export const CheckoutButton = InjectAppServices(
           >
             {_(keyTextButton)}
           </button>
-        </div>
+        </StickyFooterAction>
         <button type="button" className="dp-button button-big dp-secure-payment">
           <span className="ms-icon dpicon iconapp-padlock"></span>
           {_('checkoutProcessForm.purchase_summary.secure_payment_message')}

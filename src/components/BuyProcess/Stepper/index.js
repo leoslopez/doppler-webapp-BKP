@@ -10,7 +10,14 @@ export const Stepper = ({ steps, mobileVariant = false, firstStepBackUrl }) => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
 
-  const activeStepIndex = steps.findIndex((st) => pathname.includes(st.pathname));
+  const activeStepIndex = steps.reduce(
+    (currentMatchIndex, step, index) =>
+      pathname.includes(step.pathname) &&
+      (currentMatchIndex === -1 || step.pathname.length > steps[currentMatchIndex].pathname.length)
+        ? index
+        : currentMatchIndex,
+    -1,
+  );
   const currentStepIndex = activeStepIndex >= 0 ? activeStepIndex : 0;
   const currentStep = steps[currentStepIndex];
   const nextStep = steps[currentStepIndex + 1];
@@ -41,14 +48,14 @@ export const Stepper = ({ steps, mobileVariant = false, firstStepBackUrl }) => {
             <span className="dp-new-plan-selection-stepper-current">
               {currentStepIndex + 1}. {_(currentStep.label)}
             </span>
-            {nextStep && (
-              <span className="dp-new-plan-selection-stepper-next">
-                {_('buy_process.stepper.next_step', {
-                  step: currentStepIndex + 2,
-                  label: _(nextStep.label),
-                })}
-              </span>
-            )}
+            <span className="dp-new-plan-selection-stepper-next">
+              {nextStep
+                ? _('buy_process.stepper.next_step', {
+                    step: currentStepIndex + 2,
+                    label: _(nextStep.label),
+                  })
+                : _('buy_process.stepper.final_step')}
+            </span>
           </div>
           <span
             className="dp-new-plan-selection-stepper-progress"

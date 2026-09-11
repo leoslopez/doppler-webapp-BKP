@@ -1,10 +1,23 @@
 import styled from 'styled-components';
 
-export const TooltipPanel = styled.div`
+export const ImpressionsQuestion = styled.div`
+  @media (max-width: 767px) {
+    .dp-second-order-title {
+      width: 100%;
+    }
+  }
+`;
+
+export const TooltipPanel = styled.span`
+  display: inline-block;
+
   .onsite-tooltip-container {
+    display: inline-block;
     font-size: 16px;
-    margin-top: 8px;
     margin-left: 6px;
+    position: relative;
+    top: -2px;
+    vertical-align: middle;
   }
 `;
 

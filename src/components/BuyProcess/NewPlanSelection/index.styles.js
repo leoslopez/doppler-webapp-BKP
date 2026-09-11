@@ -1217,6 +1217,11 @@ export const NewPlanSelectionStyled = styled.div`
   }
 
   @media (max-width: 767px) {
+    .dp-new-plan-selection-header {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
     .dp-new-plan-selection-title {
       display: block;
     }
@@ -1238,10 +1243,17 @@ export const NewPlanSelectionStyled = styled.div`
     .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits)
       .dp-new-plan-selection-price {
       display: block;
+      margin-top: 16px;
+      padding-top: 0;
     }
 
     .dp-new-plan-selection-price-cta {
       display: none;
+    }
+
+    .dp-new-plan-selection-price {
+      padding-left: 12px;
+      padding-right: 12px;
     }
 
     .dp-new-plan-selection-sticky-summary {
@@ -1284,8 +1296,16 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits) {
+      border: 0;
+      border-radius: 0;
       margin-top: 16px;
       padding: 20px;
+    }
+
+    /* stylelint-disable-next-line selector-descendant-combinator-no-non-space */
+    .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits)
+      .dp-new-plan-selection-price::before {
+      display: none;
     }
 
     .dp-new-plan-selection-card-credits .dp-new-plan-selection-price-credits {
@@ -1364,8 +1384,9 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-more-than-message {
-      align-items: flex-start;
-      display: block;
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
     }
 
     .dp-new-plan-selection-more-than-link {
@@ -1440,8 +1461,8 @@ export const NewPlanSelectionStyled = styled.div`
     .dp-new-plan-selection-addons-cards {
       flex-direction: column;
       gap: 16px;
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .dp-new-plan-selection-addons-sidebar-list {

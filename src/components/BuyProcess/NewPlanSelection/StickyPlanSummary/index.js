@@ -1,5 +1,4 @@
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
-import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { PLAN_TYPE } from '../../../../doppler-types';
 import { StickyPlanSummaryContainer } from './index.styles';
@@ -37,7 +36,7 @@ export const StickyPlanSummary = ({ summary }) => {
   const amountLabel = summary.amountLabel ?? summary.contactsLabel;
 
   const stickySummary = (
-    <StickyPlanSummaryContainer data-testid="dp-sticky-plan-summary">
+    <StickyPlanSummaryContainer data-testid="dp-sticky-plan-summary" portal>
       <div className="dp-new-plan-selection-sticky-summary-content">
         <div className="dp-new-plan-selection-sticky-summary-copy">
           <h1 className="dp-new-plan-selection-sticky-summary-title">
@@ -136,16 +135,16 @@ export const StickyPlanSummary = ({ summary }) => {
           </Link>
         ) : summary.isDisabled ? (
           <button type="button" className="dp-button button-medium primary-green" disabled>
-            <FormattedMessage id="buy_process.new_plan_selection.sticky_default_cta" />
+            <FormattedMessage id="buy_process.new_plan_selection.sticky_choose_plan_cta" />
           </button>
         ) : (
           <a className="dp-button button-medium primary-green" href={summary.ctaHref}>
-            <FormattedMessage id="buy_process.new_plan_selection.sticky_default_cta" />
+            <FormattedMessage id="buy_process.new_plan_selection.sticky_choose_plan_cta" />
           </a>
         )}
       </div>
     </StickyPlanSummaryContainer>
   );
 
-  return createPortal(stickySummary, document.body);
+  return stickySummary;
 };
