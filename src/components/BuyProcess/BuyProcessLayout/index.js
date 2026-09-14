@@ -6,7 +6,7 @@ import {
   BUY_ONSITE_PLAN,
   BUY_PUSH_NOTIFICATION_PLAN,
 } from '../../../doppler-types';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { InjectAppServices } from '../../../services/pure-di';
@@ -101,7 +101,16 @@ export const BuyProcessLayout = InjectAppServices(
       ((pathname.startsWith('/checkout/') || pathname === '/checkout-summary') &&
         sessionStorage.getItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY) === 'true');
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+      // The mfe's own hide mechanism (window.displayDopplerNavBar) only takes effect once its
+      // script has loaded, which can happen after this component has already painted, causing
+      // the menu to flash before it is hidden. Hiding the mount element via CSS here runs
+      // synchronously before the browser paints, so the menu never becomes visible in the first place.
+      const menuElement = document.getElementById('doppler-menu-mfe');
+      if (menuElement) {
+        menuElement.style.display = isPartOfNewPlanSelectionFlow ? 'none' : '';
+      }
+
       const setNavBarVisibility = (visible) => {
         if (typeof window.displayDopplerNavBar === 'function') {
           window.displayDopplerNavBar(visible);
@@ -121,6 +130,9 @@ export const BuyProcessLayout = InjectAppServices(
 
       return () => {
         clearInterval(intervalId);
+        if (menuElement) {
+          menuElement.style.display = '';
+        }
         setNavBarVisibility(true);
       };
     }, [isPartOfNewPlanSelectionFlow]);
