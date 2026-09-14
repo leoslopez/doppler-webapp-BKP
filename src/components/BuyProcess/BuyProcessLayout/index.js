@@ -89,21 +89,9 @@ export const BuyProcessLayout = InjectAppServices(
     const isNewPlanSelection = pathname === '/new-plan-selection';
 
     useLayoutEffect(() => {
-      const hideElement = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.style.display = 'none';
-          return true;
-        }
-        return false;
-      };
-
-      const showElement = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.style.display = '';
-        }
-      };
+      const style = document.createElement('style');
+      style.textContent = '#doppler-menu-mfe, #beamerSelector { display: none !important; }';
+      document.head.appendChild(style);
 
       const setNavBarVisibility = (visible) => {
         if (typeof window.displayDopplerNavBar === 'function') {
@@ -112,8 +100,6 @@ export const BuyProcessLayout = InjectAppServices(
         }
         return false;
       };
-
-      hideElement('doppler-menu-mfe');
 
       let intervalId;
       if (!setNavBarVisibility(false)) {
@@ -124,21 +110,9 @@ export const BuyProcessLayout = InjectAppServices(
         }, 200);
       }
 
-      let beamerObserver;
-      if (!hideElement('beamerSelector')) {
-        beamerObserver = new MutationObserver(() => {
-          if (hideElement('beamerSelector')) {
-            beamerObserver.disconnect();
-          }
-        });
-        beamerObserver.observe(document.body, { childList: true, subtree: true });
-      }
-
       return () => {
         clearInterval(intervalId);
-        beamerObserver?.disconnect();
-        showElement('doppler-menu-mfe');
-        showElement('beamerSelector');
+        style.remove();
         setNavBarVisibility(true);
       };
     }, []);
