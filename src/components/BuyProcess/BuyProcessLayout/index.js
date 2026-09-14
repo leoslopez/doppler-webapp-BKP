@@ -6,7 +6,7 @@ import {
   BUY_ONSITE_PLAN,
   BUY_PUSH_NOTIFICATION_PLAN,
 } from '../../../doppler-types';
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { InjectAppServices } from '../../../services/pure-di';
@@ -78,8 +78,6 @@ export const getSteps = (buyType, user, pathname) => {
   return steps;
 };
 
-const NEW_PLAN_SELECTION_FLOW_STORAGE_KEY = 'isNewPlanSelectionFlow';
-
 export const BuyProcessLayout = InjectAppServices(
   ({ children, dependencies: { appSessionRef } }) => {
     const { pathname } = useLocation();
@@ -90,25 +88,10 @@ export const BuyProcessLayout = InjectAppServices(
     );
     const isNewPlanSelection = pathname === '/new-plan-selection';
 
-    if (isNewPlanSelection) {
-      sessionStorage.setItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY, 'true');
-    } else if (pathname === '/plan-selection/premium') {
-      sessionStorage.removeItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY);
-    }
-
-    const isPartOfNewPlanSelectionFlow =
-      isNewPlanSelection ||
-      ((pathname.startsWith('/checkout/') || pathname === '/checkout-summary') &&
-        sessionStorage.getItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY) === 'true');
-
     useLayoutEffect(() => {
-      // The mfe's own hide mechanism (window.displayDopplerNavBar) only takes effect once its
-      // script has loaded, which can happen after this component has already painted, causing
-      // the menu to flash before it is hidden. Hiding the mount element via CSS here runs
-      // synchronously before the browser paints, so the menu never becomes visible in the first place.
       const menuElement = document.getElementById('doppler-menu-mfe');
       if (menuElement) {
-        menuElement.style.display = isPartOfNewPlanSelectionFlow ? 'none' : '';
+        menuElement.style.display = 'none';
       }
 
       const setNavBarVisibility = (visible) => {
@@ -120,9 +103,9 @@ export const BuyProcessLayout = InjectAppServices(
       };
 
       let intervalId;
-      if (!setNavBarVisibility(!isPartOfNewPlanSelectionFlow)) {
+      if (!setNavBarVisibility(false)) {
         intervalId = setInterval(() => {
-          if (setNavBarVisibility(!isPartOfNewPlanSelectionFlow)) {
+          if (setNavBarVisibility(false)) {
             clearInterval(intervalId);
           }
         }, 200);
@@ -135,15 +118,7 @@ export const BuyProcessLayout = InjectAppServices(
         }
         setNavBarVisibility(true);
       };
-    }, [isPartOfNewPlanSelectionFlow]);
-
-    useEffect(() => {
-      if (pathname === '/checkout-summary') {
-        return () => {
-          sessionStorage.removeItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY);
-        };
-      }
-    }, [pathname]);
+    }, []);
 
     if (isNewPlanSelection) {
       return (
