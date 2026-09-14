@@ -89,10 +89,21 @@ export const BuyProcessLayout = InjectAppServices(
     const isNewPlanSelection = pathname === '/new-plan-selection';
 
     useLayoutEffect(() => {
-      const menuElement = document.getElementById('doppler-menu-mfe');
-      if (menuElement) {
-        menuElement.style.display = 'none';
-      }
+      const hideElement = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.display = 'none';
+          return true;
+        }
+        return false;
+      };
+
+      const showElement = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.display = '';
+        }
+      };
 
       const setNavBarVisibility = (visible) => {
         if (typeof window.displayDopplerNavBar === 'function') {
@@ -102,10 +113,16 @@ export const BuyProcessLayout = InjectAppServices(
         return false;
       };
 
+      hideElement('doppler-menu-mfe');
+      let isNavBarHidden = setNavBarVisibility(false);
+      let isBeamerHidden = hideElement('beamerSelector');
+
       let intervalId;
-      if (!setNavBarVisibility(false)) {
+      if (!isNavBarHidden || !isBeamerHidden) {
         intervalId = setInterval(() => {
-          if (setNavBarVisibility(false)) {
+          isNavBarHidden = isNavBarHidden || setNavBarVisibility(false);
+          isBeamerHidden = isBeamerHidden || hideElement('beamerSelector');
+          if (isNavBarHidden && isBeamerHidden) {
             clearInterval(intervalId);
           }
         }, 200);
@@ -113,9 +130,8 @@ export const BuyProcessLayout = InjectAppServices(
 
       return () => {
         clearInterval(intervalId);
-        if (menuElement) {
-          menuElement.style.display = '';
-        }
+        showElement('doppler-menu-mfe');
+        showElement('beamerSelector');
         setNavBarVisibility(true);
       };
     }, []);
