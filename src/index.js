@@ -37,7 +37,7 @@ if (document.querySelector('body').setActive) {
   document.querySelector('body').setActive();
 }
 
-const locale = availableLanguageOrDefault(navigator.language.toLowerCase().split(/[_-]+/)[0]);
+const locale = availableLanguageOrDefault();
 
 // Only used in development and demo environments, it does not affect production build
 const forcedServices =
