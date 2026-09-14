@@ -114,22 +114,29 @@ export const BuyProcessLayout = InjectAppServices(
       };
 
       hideElement('doppler-menu-mfe');
-      let isNavBarHidden = setNavBarVisibility(false);
-      let isBeamerHidden = hideElement('beamerSelector');
 
       let intervalId;
-      if (!isNavBarHidden || !isBeamerHidden) {
+      if (!setNavBarVisibility(false)) {
         intervalId = setInterval(() => {
-          isNavBarHidden = isNavBarHidden || setNavBarVisibility(false);
-          isBeamerHidden = isBeamerHidden || hideElement('beamerSelector');
-          if (isNavBarHidden && isBeamerHidden) {
+          if (setNavBarVisibility(false)) {
             clearInterval(intervalId);
           }
         }, 200);
       }
 
+      let beamerObserver;
+      if (!hideElement('beamerSelector')) {
+        beamerObserver = new MutationObserver(() => {
+          if (hideElement('beamerSelector')) {
+            beamerObserver.disconnect();
+          }
+        });
+        beamerObserver.observe(document.body, { childList: true, subtree: true });
+      }
+
       return () => {
         clearInterval(intervalId);
+        beamerObserver?.disconnect();
         showElement('doppler-menu-mfe');
         showElement('beamerSelector');
         setNavBarVisibility(true);
