@@ -78,6 +78,8 @@ export const getSteps = (buyType, user, pathname) => {
   return steps;
 };
 
+const NEW_PLAN_SELECTION_FLOW_STORAGE_KEY = 'isNewPlanSelectionFlow';
+
 export const BuyProcessLayout = InjectAppServices(
   ({ children, dependencies: { appSessionRef } }) => {
     const { pathname } = useLocation();
@@ -87,6 +89,17 @@ export const BuyProcessLayout = InjectAppServices(
       (s) => s.visible === true,
     );
     const isNewPlanSelection = pathname === '/new-plan-selection';
+
+    if (isNewPlanSelection) {
+      sessionStorage.setItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY, 'true');
+    } else if (pathname === '/plan-selection/premium') {
+      sessionStorage.removeItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY);
+    }
+
+    const isPartOfNewPlanSelectionFlow =
+      isNewPlanSelection ||
+      ((pathname.startsWith('/checkout/') || pathname === '/checkout-summary') &&
+        sessionStorage.getItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY) === 'true');
 
     useEffect(() => {
       const setNavBarVisibility = (visible) => {
@@ -98,9 +111,9 @@ export const BuyProcessLayout = InjectAppServices(
       };
 
       let intervalId;
-      if (!setNavBarVisibility(!isNewPlanSelection)) {
+      if (!setNavBarVisibility(!isPartOfNewPlanSelectionFlow)) {
         intervalId = setInterval(() => {
-          if (setNavBarVisibility(!isNewPlanSelection)) {
+          if (setNavBarVisibility(!isPartOfNewPlanSelectionFlow)) {
             clearInterval(intervalId);
           }
         }, 200);
@@ -110,7 +123,15 @@ export const BuyProcessLayout = InjectAppServices(
         clearInterval(intervalId);
         setNavBarVisibility(true);
       };
-    }, [isNewPlanSelection]);
+    }, [isPartOfNewPlanSelectionFlow]);
+
+    useEffect(() => {
+      if (pathname === '/checkout-summary') {
+        return () => {
+          sessionStorage.removeItem(NEW_PLAN_SELECTION_FLOW_STORAGE_KEY);
+        };
+      }
+    }, [pathname]);
 
     if (isNewPlanSelection) {
       return (
