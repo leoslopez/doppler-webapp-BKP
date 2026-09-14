@@ -803,6 +803,11 @@ other {}}}}}}}}}}
       invite: 'Reenviar invitación',
     },
     meta_title: 'Doppler | Administración de colaboradores',
+    no_data: {
+      initial_message: 'Aún no tienes colaboradores creados.',
+      search_description: 'Ajusta los parámetros para ver más datos.',
+      search_message: 'Sin resultados para tu búsqueda.',
+    },
     search: {
       label: 'Buscar colaborador',
       placeholder: 'Buscar por nombre o email de Colaborador',
