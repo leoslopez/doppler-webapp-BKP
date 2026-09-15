@@ -368,9 +368,30 @@ export const CollaboratorsSections = InjectAppServices(
               <h6 className="m-b-18">{_('collaborators.title_second')}</h6>
               <div className="dp-table-responsive" aria-busy={tableLoading}>
                 {tableLoading && <Loading />}
+                {data.items.length === 0 && (
+                  <div className="dp-container m-b-102" style={{ padding: 0 }}>
+                    <div className="dp-box-shadow dp-wrapper-message dp-colflex">
+                      <span className="dpicon iconapp-message-alert icon-svg--lg m-t-102 dp-color-lightgrey"></span>
+                      {searchTerm ? (
+                        <>
+                          <p className="m-t-12">{_('collaborators.no_data.search_message')}</p>
+                          <p className="m-b-102">{_('collaborators.no_data.search_description')}</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="m-t-12">{_('collaborators.no_data.initial_message')}</p>
+                          <p className="m-b-102">
+                            {_('collaborators.no_data.initial_description')}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
                 <table
                   id="collaborators-table"
                   className="dp-table-multilogin"
+                  hidden={data.items.length === 0}
                   aria-label="Resultado multilogin"
                   summary="Resultado de multilogin"
                 >

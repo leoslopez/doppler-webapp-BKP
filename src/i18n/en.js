@@ -804,6 +804,12 @@ Payment details will be included in the invoice sent to the recipient you have i
       invite: 'Resend invitation',
     },
     meta_title: 'Doppler | Collaborator Management',
+    no_data: {
+      initial_description: 'Invite someone from your team to start working together.',
+      initial_message: "You don't have any Collaborators yet.",
+      search_description: 'Adjust the parameters to see more data.',
+      search_message: 'No results found for your search.',
+    },
     search: {
       label: 'Search collaborator',
       placeholder: 'Search by Collaborator name or email',

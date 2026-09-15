@@ -151,6 +151,24 @@ describe('CollaboratorsSections', () => {
     expect(document.querySelector('.dp-pagination')).toBeInTheDocument();
   });
 
+  it('renders the initial empty state without an invite button', async () => {
+    const dopplerUserApiClient = createDopplerUserApiClientDouble();
+    dopplerUserApiClient.getCollaborationInvites.mockResolvedValueOnce({
+      success: true,
+      value: createInvitationsPage([]),
+    });
+    renderComponent(dopplerUserApiClient);
+
+    const loader = screen.getByTestId('wrapper-loading');
+    await waitForElementToBeRemoved(loader);
+
+    expect(screen.getByText('collaborators.no_data.initial_message')).toBeInTheDocument();
+    expect(screen.getByText('collaborators.no_data.initial_description')).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('button', { name: 'collaborators.add_collaborator_button' }),
+    ).toHaveLength(1);
+  });
+
   it('shows the selected collaborators page and requests it from the API', async () => {
     const user = userEvent.setup();
     const dopplerUserApiClient = createDopplerUserApiClientDouble();
