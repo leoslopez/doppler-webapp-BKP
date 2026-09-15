@@ -380,13 +380,9 @@ export const CollaboratorsSections = InjectAppServices(
                       ) : (
                         <>
                           <p className="m-t-12">{_('collaborators.no_data.initial_message')}</p>
-                          <button
-                            type="button"
-                            className="dp-button button-medium secondary-green m-t-12 m-b-102"
-                            onClick={() => handleModalOpen(true)}
-                          >
-                            {_('collaborators.add_collaborator_button')}
-                          </button>
+                          <p className="m-b-102">
+                            {_('collaborators.no_data.initial_description')}
+                          </p>
                         </>
                       )}
                     </div>
