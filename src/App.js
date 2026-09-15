@@ -447,7 +447,7 @@ const App = ({ locale, window, dependencies: { appSessionRef, sessionManager } }
             <Route
               path="/my-plan/"
               element={
-                <PrivateRoute section={COLLABORATOR_SECTION.ControlPanel}>
+                <PrivateRoute>
                   <MyPlan />
                 </PrivateRoute>
               }
