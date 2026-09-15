@@ -90,7 +90,7 @@ export const BuyProcessLayout = InjectAppServices(
 
     useLayoutEffect(() => {
       const style = document.createElement('style');
-      style.textContent = '#doppler-menu-mfe, #beamerSelector { display: none !important; }';
+      style.textContent = '#doppler-menu-mfe { display: none !important; }';
       document.head.appendChild(style);
 
       const setNavBarVisibility = (visible) => {
