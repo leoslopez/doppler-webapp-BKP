@@ -18,11 +18,14 @@ import { FAQSection } from '../BuyProcess/NewPlanSelection/FAQSection';
 import { NewPlanSelectionStyled } from '../BuyProcess/NewPlanSelection/index.styles';
 import { GoBackButton } from '../BuyProcess/NewPlanSelection/GoBackButton';
 import useTimeout from '../../hooks/useTimeout';
+import { useHideAppMenu } from '../../hooks/useHideAppMenu';
 
 const UpgradeSuggestionForm = ({ dependencies: { dopplerLegacyClient, appSessionRef } }) => {
   const intl = useIntl();
   const _ = (id, values) => intl.formatMessage({ id: id }, values);
   const createTimeout = useTimeout();
+
+  useHideAppMenu();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
