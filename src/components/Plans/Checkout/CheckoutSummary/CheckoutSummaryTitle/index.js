@@ -29,7 +29,10 @@ export const CheckoutSummaryTitle = ({ title, hideBreadcrumb = false }) => {
         </h2>
         <NewPlanSelectionStyled>
           <div className="dp-new-plan-selection-back p-t-12">
-            <Link to="/dashboard" className="dp-button button-medium ctaTertiary dp-new-plan-selection-back-button">
+            <Link
+              to="/dashboard"
+              className="dp-button button-medium ctaTertiary dp-new-plan-selection-back-button"
+            >
               <span className="dp-new-plan-selection-back-text">
                 {_('checkoutProcessSuccess.go_to_home_link')}
               </span>
