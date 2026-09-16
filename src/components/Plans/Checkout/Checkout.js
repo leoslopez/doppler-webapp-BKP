@@ -260,7 +260,7 @@ const Checkout = InjectAppServices(
         <HeaderSection>
           <div className="col-sm-12 col-md-12 col-lg-12">
             <NewPlanSelectionStyled>
-              <div className="dp-new-plan-selection-back p-b-12">
+              <div className="dp-new-plan-selection-back">
                 <GoBackButton />
               </div>
             </NewPlanSelectionStyled>
