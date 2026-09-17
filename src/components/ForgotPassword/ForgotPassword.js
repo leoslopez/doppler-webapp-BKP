@@ -17,6 +17,7 @@ import { connect } from 'formik';
 import Promotions from '../shared/Promotions/Promotions';
 import { getFormInitialValues } from '../../utils';
 import { useGetBannerData } from '../../hooks/useGetBannerData';
+import { useFingerPrinting } from '../../hooks/useFingerPrinting';
 
 const fieldNames = {
   email: 'email',
@@ -36,6 +37,7 @@ const ForgotPassword = ({
   const _ = (id, values) => intl.formatMessage({ id: id }, values);
   const [sentEmail, setSentEmail] = useState(null);
   const bannerDataState = useGetBannerData({ dopplerSitesClient, type: 'login' });
+  const { fingerPrintingId } = useFingerPrinting();
 
   /** Prepare empty values for all fields
    * It is required because in another way, the fields are not marked as touched.
@@ -53,10 +55,16 @@ const ForgotPassword = ({
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
     let isShowingForm = true;
     try {
-      const result = await dopplerLegacyClient.sendResetPasswordEmail({
+      const resetPasswordRequest = {
         email: values[fieldNames.email].trim(),
         captchaResponseToken: values['captchaResponseToken'],
-      });
+      };
+
+      if (fingerPrintingId) {
+        resetPasswordRequest.fingerprint = fingerPrintingId;
+      }
+
+      const result = await dopplerLegacyClient.sendResetPasswordEmail(resetPasswordRequest);
 
       if (result.success) {
         setSentEmail(values[fieldNames.email]);
