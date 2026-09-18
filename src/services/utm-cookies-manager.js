@@ -5,6 +5,14 @@ export class UtmCookiesManager {
     this.hasRegistered = false;
   }
 
+  getAffiliateId() {
+    return this.getCookieFromDocument('AffiliateClickId');
+  }
+
+  getAffiliateSource() {
+    return this.getCookieFromDocument('AffiliateSource');
+  }
+
   setCookieEntry(utmParams) {
     const hasGclid = utmParams.gclid;
     const isFromFromdoppler = this.document?.referrer?.includes('fromdoppler.com');
