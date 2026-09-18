@@ -296,7 +296,10 @@ const Signup = function ({
     });
     if (result.success) {
       if (result.value && result.value.verificationCode) {
-        window.location.href = `${process.env.REACT_APP_DOPPLER_LEGACY_URL}/Registration/CompleteRegistry/CompleteUserInfo/${result.value.verificationCode}`;
+        const fingerprintQueryParam = fingerPrintingId
+          ? `?fp=${encodeURIComponent(fingerPrintingId)}`
+          : '';
+        window.location.href = `${process.env.REACT_APP_DOPPLER_LEGACY_URL}/Registration/CompleteRegistry/CompleteUserInfo/${result.value.verificationCode}${fingerprintQueryParam}`;
       } else {
         const hasQueryParams = location.search.length > 0;
         const registeredUser = values['email'].trim();

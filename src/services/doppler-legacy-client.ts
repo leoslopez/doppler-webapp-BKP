@@ -59,6 +59,7 @@ interface PayloadWithCaptchaToken {
 
 export interface ForgotPasswordModel extends PayloadWithCaptchaToken {
   email: string;
+  fingerprint?: number | string | null;
 }
 
 export interface RequestAgenciesDemoModel {
@@ -1341,6 +1342,7 @@ export class HttpDopplerLegacyClient implements DopplerLegacyClient {
       const response = await this.axios.post('WebAppPublic/SendResetPasswordEmail', {
         Email: model.email,
         RecaptchaUserCode: model.captchaResponseToken,
+        Fingerprint: model.fingerprint,
       });
 
       if (!response.data.success) {
