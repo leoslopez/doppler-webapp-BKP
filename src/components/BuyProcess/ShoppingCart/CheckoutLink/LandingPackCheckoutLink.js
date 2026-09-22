@@ -2,6 +2,7 @@ import { FormattedMessage } from 'react-intl';
 import { TooltipContainer } from '../../../TooltipContainer/TooltipContainer';
 import { useLocation } from 'react-router-dom';
 import { CheckoutLinkStyled } from './index.style';
+import { MobileCheckoutAction } from '../MobileCheckoutAction';
 
 export const LandingPackCheckoutLink = ({
   showTooltip,
@@ -12,7 +13,7 @@ export const LandingPackCheckoutLink = ({
 }) => {
   const { search } = useLocation();
 
-  return (
+  const checkoutLink = (
     <TooltipContainer
       visible={showTooltip}
       content={<FormattedMessage id="plan_calculator.button_purchase_tooltip" />}
@@ -34,6 +35,8 @@ export const LandingPackCheckoutLink = ({
       </CheckoutLinkStyled>
     </TooltipContainer>
   );
+
+  return <MobileCheckoutAction>{checkoutLink}</MobileCheckoutAction>;
 };
 
 export const getNewCheckoutPurchaseUrl = ({

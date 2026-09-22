@@ -18,6 +18,15 @@ export const StickyFooterActionContainer = styled.section`
     height: var(--dp-buy-process-footer-height, 80px);
   }
 
+  &.dp-checkout-buy-mobile-sticky {
+    padding: 12px 18px;
+  }
+
+  &.dp-checkout-buy-mobile-sticky .dp-button,
+  &.dp-checkout-buy-mobile-sticky .dp-tooltip-container {
+    width: 100%;
+  }
+
   @media (max-width: 767px) {
     align-items: center;
     display: flex;

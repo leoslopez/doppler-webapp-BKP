@@ -3,7 +3,8 @@ import { useFetchLandingPacks } from '../../../hooks/useFetchtLandingPacks';
 import { InjectAppServices } from '../../../services/pure-di';
 import { Loading } from '../../Loading/Loading';
 import HeaderSection from '../../shared/HeaderSection/HeaderSection';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
+import * as S from './styles';
 import { ShoppingCart } from '../ShoppingCart';
 import { UnexpectedError } from '../UnexpectedError';
 import { LandingPacks, filterPackagesEqualOrGreatherToZero } from './LandingPacks';
@@ -255,20 +256,20 @@ export const LandingPacksSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">{_('landing_selection.title')}</h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-lg-8 col-md-12">
-              <div className="dp-container p-b-48">
+              <S.LandingInformation className="dp-container p-b-48">
                 <div className="dp-rowflex">
                   <div className="col-sm-12">
                     <p>{_('landing_selection.description')}</p>
                   </div>
-                  <div className="col-sm-6 m-t-36">
+                  <div className="col-sm-6 m-t-36 dp-landing-information-column">
                     <h6>
                       <strong>{_('landing_selection.subtitle1')}</strong>
                     </h6>
@@ -281,7 +282,7 @@ export const LandingPacksSelection = InjectAppServices(
                       />
                     </p>
                   </div>
-                  <div className="col-sm-6 m-t-36">
+                  <div className="col-sm-6 m-t-36 dp-landing-information-column">
                     <h6>
                       <strong>{_('landing_selection.subtitle2')}</strong>
                     </h6>
@@ -295,7 +296,7 @@ export const LandingPacksSelection = InjectAppServices(
                     </p>
                   </div>
                 </div>
-              </div>
+              </S.LandingInformation>
               <LandingPacks
                 landingPacks={landingPacksFormValues}
                 handleSave={handleSave}
@@ -326,10 +327,7 @@ export const LandingPacksSelection = InjectAppServices(
                   </div>
                 </section>
               )}
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

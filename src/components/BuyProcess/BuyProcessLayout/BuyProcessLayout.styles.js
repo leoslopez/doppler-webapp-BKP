@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
 export const BuyProcessLayoutContainer = styled.div`
+  .dp-add-on-selection .dp-first-order-title,
+  .dp-add-on-selection .dp-second-order-title,
+  .dp-add-on-selection h6 {
+    text-wrap: pretty;
+  }
+
   @media (max-width: 1199px) {
     &.dp-buy-process-trial {
       --dp-buy-process-menu-height: var(--dp-buy-process-trial-menu-height);

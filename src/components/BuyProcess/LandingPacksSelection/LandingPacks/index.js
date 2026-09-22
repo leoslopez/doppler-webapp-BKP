@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { Formik, Field, Form, FieldArray, useFormikContext } from 'formik';
+import { Formik, Field, FieldArray, useFormikContext } from 'formik';
 import { MAX_LANDING_PACKAGE, numberFormatOptions } from '../../../../doppler-types';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
+import * as S from './styles';
 
 const landingsFieldNames = {
   landingPackages: 'landingPackages',
@@ -139,7 +140,7 @@ export const LandingPacks = ({
         enableReinitialize={true}
       >
         {({ values }) => (
-          <Form className="awa-form dp-packs">
+          <S.LandingPacksForm className="awa-form dp-packs">
             <FieldArray name={landingsFieldNames.landingPackages}>
               <>
                 {values[landingsFieldNames.landingPackages].length > 0 &&
@@ -214,7 +215,7 @@ export const LandingPacks = ({
               loadingRemoveLandingPages={loadingRemoveLandingPages}
               showArchiveLandings={showArchiveLandings}
             />
-          </Form>
+          </S.LandingPacksForm>
         )}
       </Formik>
     </>

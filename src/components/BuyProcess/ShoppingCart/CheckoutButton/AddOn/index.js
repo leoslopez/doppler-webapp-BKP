@@ -12,6 +12,7 @@ import {
   BUY_ONSITE_PLAN,
   BUY_PUSH_NOTIFICATION_PLAN,
 } from '../../../../../doppler-types';
+import { MobileCheckoutAction } from '../../MobileCheckoutAction';
 
 export const DELAY_BEFORE_REDIRECT_TO_SUMMARY = 3000;
 const HAS_ERROR = 'HAS_ERROR';
@@ -114,17 +115,19 @@ export const AddOnCheckoutButton = InjectAppServices(
 
     return (
       <>
-        <button
-          type="button"
-          className={
-            'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
-          }
-          disabled={disabledBuy}
-          onClick={parseInt(addOnPlanId) === 0 ? cancelAddOnPlan : proceedToBuy}
-          aria-label="buy"
-        >
-          {_(keyTextButton)}
-        </button>
+        <MobileCheckoutAction>
+          <button
+            type="button"
+            className={
+              'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
+            }
+            disabled={disabledBuy}
+            onClick={parseInt(addOnPlanId) === 0 ? cancelAddOnPlan : proceedToBuy}
+            aria-label="buy"
+          >
+            {_(keyTextButton)}
+          </button>
+        </MobileCheckoutAction>
         <button type="button" className="dp-button button-big dp-secure-payment">
           <span className="ms-icon dpicon iconapp-padlock"></span>
           {_('checkoutProcessForm.purchase_summary.secure_payment_message')}

@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 import { InjectAppServices } from '../../../services/pure-di';
 import HeaderSection from '../../shared/HeaderSection/HeaderSection';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
 import { PlanInformation } from './PlanInformation';
 import { Slider } from '../Slider';
 import { BannerUpgrade } from '../BannerUpgrade';
@@ -179,14 +179,14 @@ export const PushNotificationPlanSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
               {_('push_notification_selection.title')} <span className="dpicon iconapp-bell1" />
             </h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
               <PlanInformation />
@@ -238,10 +238,7 @@ export const PushNotificationPlanSelection = InjectAppServices(
                   {_('push_notification_selection.expiration_free_plan_message')}
                 </span>
               </section>
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

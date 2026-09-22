@@ -55,6 +55,10 @@ export const CheckoutSummaryLayout = styled.div`
     display: none;
   }
 
+  .checkout-summary-main ul.checkout-summary-landing-mobile {
+    display: none;
+  }
+
   @media (max-width: 767px) {
     padding-bottom: 24px;
 
@@ -150,6 +154,45 @@ export const CheckoutSummaryLayout = styled.div`
     .checkout-summary-main .dp-purchase-summary-list h4 {
       font-size: 16px;
       line-height: 20px;
+      margin: 0;
+    }
+
+    .checkout-summary-main ul.checkout-summary-landing-desktop {
+      display: none;
+    }
+
+    .checkout-summary-main ul.checkout-summary-landing-mobile {
+      display: block;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-mobile > li {
+      margin: 0;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-detail-label {
+      margin-bottom: 2px;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-detail-label + .checkout-summary-landing-pack {
+      margin-top: 0;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-pack + .checkout-summary-landing-pack {
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-pack-data {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 8px;
+    }
+
+    .checkout-summary-main .checkout-summary-landing-pack-data span,
+    .checkout-summary-main .checkout-summary-landing-pack-data h4 {
       margin: 0;
     }
   }

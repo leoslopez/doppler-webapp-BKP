@@ -12,7 +12,7 @@ import { Packs } from './Packs';
 import { Loading } from '../../Loading/Loading';
 import { Navigate } from 'react-router-dom';
 import RedirectToExternalUrl from '../../RedirectToExternalUrl';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
 
 export const EcoAIPlanSelection = InjectAppServices(
   ({
@@ -179,14 +179,14 @@ export const EcoAIPlanSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
               {_('eco_ai_selection.title')} <span className="dpicon icon-sparkle-ia" />
             </h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
               <div className="p-b-48">
@@ -213,10 +213,7 @@ export const EcoAIPlanSelection = InjectAppServices(
                   </div>
                 </section>
               )}
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

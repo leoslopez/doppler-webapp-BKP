@@ -8,7 +8,7 @@ import { Loading } from '../../Loading/Loading';
 import { UnexpectedError } from '../UnexpectedError';
 import { Slider } from '../Slider';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
 import { ShoppingCart } from '../ShoppingCart';
 import { BannerUpgrade } from '../BannerUpgrade';
 import { getPromotionInformationMessage } from '../utils';
@@ -173,14 +173,14 @@ export const ConversationPlanSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
               {_('chat_selection.title')} <span className="dpicon iconapp-chatting" />
             </h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
               <ConversationPlanInformation />
@@ -231,10 +231,7 @@ export const ConversationPlanSelection = InjectAppServices(
                 </span>
               </section>
               <PlanBenefits selectedPlan={selectedPlan} customPlan={customAddOnPlans[0]} />
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

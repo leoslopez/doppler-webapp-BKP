@@ -8,6 +8,7 @@ import { ACCOUNT_TYPE } from '../../../../hooks/useUserTypeAsQueryParam';
 import { getCheckoutErrorMesage } from '../utils';
 import { FREE_ACCOUNT, PAID_ACCOUNT } from '../../../../utils';
 import { BUY_LANDING_PACK } from '../../../../doppler-types';
+import { MobileCheckoutAction } from '../MobileCheckoutAction';
 
 export const DELAY_BEFORE_REDIRECT_TO_SUMMARY = 3000;
 const HAS_ERROR = 'HAS_ERROR';
@@ -94,17 +95,19 @@ export const LandingPackCheckoutButton = InjectAppServices(
 
     return (
       <>
-        <button
-          type="button"
-          className={
-            'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
-          }
-          disabled={disabledBuy}
-          onClick={cancelLandings ? cancelLandingsPlans : proceedToBuy}
-          aria-label="buy"
-        >
-          {_(keyTextButton)}
-        </button>
+        <MobileCheckoutAction>
+          <button
+            type="button"
+            className={
+              'dp-button button-big primary-green' + (status === SAVING ? ' button--loading' : '')
+            }
+            disabled={disabledBuy}
+            onClick={cancelLandings ? cancelLandingsPlans : proceedToBuy}
+            aria-label="buy"
+          >
+            {_(keyTextButton)}
+          </button>
+        </MobileCheckoutAction>
         <button type="button" className="dp-button button-big dp-secure-payment">
           <span className="ms-icon dpicon iconapp-padlock"></span>
           {_('checkoutProcessForm.purchase_summary.secure_payment_message')}
