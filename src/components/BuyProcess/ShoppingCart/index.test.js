@@ -1,10 +1,15 @@
 import '@testing-library/jest-dom/extend-expect';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppServicesProvider } from '../../../services/pure-di';
 import IntlProvider from '../../../i18n/DopplerIntlProvider.double-with-ids-as-values';
 import { ShoppingCart } from '.';
-import { BUY_MARKETING_PLAN, PaymentMethodType, PLAN_TYPE } from '../../../doppler-types';
+import {
+  BUY_CHAT_PLAN,
+  BUY_MARKETING_PLAN,
+  PaymentMethodType,
+  PLAN_TYPE,
+} from '../../../doppler-types';
 
 describe('ShoppingCart', () => {
   it('should render Argentina transfer totals in pesos when billing country is lowercase', async () => {
@@ -94,5 +99,65 @@ describe('ShoppingCart', () => {
     const totalElement = document.querySelector('h3.dp-total-purchase');
     expect(totalElement).toHaveTextContent('$ 10,000.00**');
     expect(totalElement).not.toHaveTextContent('US$ 10.00*');
+  });
+
+  it('should show Argentina transfer clarifications for add-on purchases', async () => {
+    const getAddOnPlanBillingDetailsData = jest.fn().mockResolvedValue({
+      success: true,
+      value: {
+        currentMonthTotal: 10,
+        currencyRate: 1000,
+        currencyDate: '2024-08-01T00:00:00',
+      },
+    });
+
+    const forcedServices = {
+      appSessionRef: {
+        current: {
+          userData: {
+            user: {
+              plan: {
+                planSubscription: 1,
+                planType: PLAN_TYPE.byContact,
+                isFreeAccount: true,
+              },
+            },
+          },
+        },
+      },
+      dopplerAccountPlansApiClient: {
+        getAddOnPlanBillingDetailsData,
+      },
+      dopplerBillingUserApiClient: {},
+    };
+
+    render(
+      <BrowserRouter>
+        <AppServicesProvider forcedServices={forcedServices}>
+          <IntlProvider>
+            <ShoppingCart
+              discountConfig={{
+                paymentFrequenciesList: [],
+                selectedPaymentFrequency: { id: 1, numberMonths: 1 },
+                onSelectPaymentFrequency: jest.fn(),
+                disabled: true,
+              }}
+              selectedAddOnPlan={{ planId: 1, fee: 10, quantity: 1000 }}
+              selectedPaymentMethod={PaymentMethodType.transfer}
+              buyType={BUY_CHAT_PLAN}
+              billingCountry="ar"
+            />
+          </IntlProvider>
+        </AppServicesProvider>
+      </BrowserRouter>,
+    );
+
+    await waitFor(() => expect(getAddOnPlanBillingDetailsData).toHaveBeenCalled());
+
+    expect(
+      screen.getByText('buy_process.shopping_cart.final_price_including_taxes'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('buy_process.shopping_cart.next_invoices_estimate')).toBeInTheDocument();
+    expect(screen.queryByText('buy_process.shopping_cart.price_without_taxes')).not.toBeInTheDocument();
   });
 });
