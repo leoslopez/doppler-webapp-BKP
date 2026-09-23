@@ -154,14 +154,16 @@ describe('ShoppingCart', () => {
 
     await waitFor(() => expect(getAddOnPlanBillingDetailsData).toHaveBeenCalled());
 
-    expect(
-      screen.getByText('buy_process.shopping_cart.final_price_including_taxes'),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText('buy_process.shopping_cart.next_invoices_estimate'),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByText('buy_process.shopping_cart.price_without_taxes'),
-    ).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText('buy_process.shopping_cart.final_price_including_taxes'),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText('buy_process.shopping_cart.next_invoices_estimate'),
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByText('buy_process.shopping_cart.price_without_taxes'),
+      ).not.toBeInTheDocument();
+    });
   });
 });
