@@ -7,7 +7,7 @@ import { ConversationPlanInformation } from './ConversationPlanInformation';
 import { Loading } from '../../Loading/Loading';
 import { UnexpectedError } from '../UnexpectedError';
 import { Slider } from '../Slider';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AddOnGoBackSection } from '../AddOnGoBackSection';
 import { ShoppingCart } from '../ShoppingCart';
 import { BannerUpgrade } from '../BannerUpgrade';
@@ -59,9 +59,6 @@ export const ConversationPlanSelection = InjectAppServices(
           : [],
       [appSessionRef],
     );
-    const itemRef = useRef(null);
-    itemRef.current = item;
-
     const addItem = useCallback((item) => setItem(item), []);
     const removeItem = () => {
       setItem(null);
@@ -86,16 +83,21 @@ export const ConversationPlanSelection = InjectAppServices(
     }, [dopplerBillingUserApiClient]);
 
     useEffect(() => {
-      itemRef.current = selectedPlanIndex >= 1 ? selectedPlan : null;
-      if (item === null) {
-        if (itemRef.current) {
-          const conversationsPromotion = conversationsPromotions.filter(
-            (c) => c?.idAddOnPlan !== undefined && c?.idAddOnPlan !== selectedPlan.planId,
-          )[0];
-
-          setShowPromotionInformation(conversationsPromotion && !selectedPlan.active);
-          addItem(selectedPlan);
+      const selectedItem = selectedPlanIndex >= 1 ? selectedPlan : null;
+      if (!selectedItem) {
+        if (item) {
+          setItem(null);
         }
+        return;
+      }
+
+      if (!item || item.planId !== selectedItem.planId) {
+        const conversationsPromotion = conversationsPromotions.filter(
+          (c) => c?.idAddOnPlan !== undefined && c?.idAddOnPlan !== selectedItem.planId,
+        )[0];
+
+        setShowPromotionInformation(conversationsPromotion && !selectedItem.active);
+        addItem(selectedItem);
       }
     }, [selectedPlan, addItem, selectedPlanIndex, item, conversationsPromotions]);
 
@@ -150,19 +152,6 @@ export const ConversationPlanSelection = InjectAppServices(
       handleSliderValue(_selectedPlanIndex);
     };
 
-    const handleSliderClick = () => {
-      if (itemRef.current) {
-        const conversationsPromotion = conversationsPromotions.filter(
-          (c) => c?.idAddOnPlan === undefined || c?.idAddOnPlan === selectedPlan.planId,
-        )[0];
-        setShowPromotionInformation(!conversationsPromotion && conversationsPromotions.length > 0);
-
-        addItem(selectedPlan);
-      } else {
-        setItem(null);
-      }
-    };
-
     if (loadingAddOnPlans || loading) {
       return <Loading page />;
     }
@@ -195,7 +184,6 @@ export const ConversationPlanSelection = InjectAppServices(
                   selectedItemIndex={selectedPlanIndex}
                   handleChange={handleSliderChange}
                   moreOptionTickmark={{ label: _('chat_selection.more_option_tickmark_message') }}
-                  handleOnClick={handleSliderClick}
                 />
                 <BannerUpgrade
                   currentPlan={selectedPlan}
