@@ -419,6 +419,7 @@ const Checkout = InjectAppServices(
               )}
             </div>
           </div>
+          <div className="dp-checkout-back-section m-b-102"></div>
         </div>
       </CheckoutContainer>
     );
