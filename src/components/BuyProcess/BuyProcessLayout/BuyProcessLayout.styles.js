@@ -26,24 +26,21 @@ export const BuyProcessLayoutContainer = styled.div`
     min-height: auto;
     padding: 0;
     text-decoration: none;
-  }
 
-  .dp-add-on-selection .dp-new-plan-selection-back .dp-button.ctaTertiary::before {
-    content: '<';
-    display: inline-block;
-    margin-right: 6px;
-  }
+    &::before {
+      content: '<';
+      display: inline-block;
+      margin-right: 6px;
+    }
 
-  .dp-add-on-selection
-    .dp-new-plan-selection-back
-    .dp-button.ctaTertiary
     .dp-new-plan-selection-back-text {
-    text-decoration: underline;
-    text-transform: uppercase;
-  }
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
 
-  .dp-add-on-selection .dp-new-plan-selection-back .dp-button.ctaTertiary:hover {
-    color: #008046;
+    &:hover {
+      color: #008046;
+    }
   }
 
   @media (max-width: 1199px) {
