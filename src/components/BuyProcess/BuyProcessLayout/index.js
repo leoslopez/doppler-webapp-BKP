@@ -13,6 +13,14 @@ import { InjectAppServices } from '../../../services/pure-di';
 import { Stepper } from '../Stepper';
 import { BuyProcessLayoutContainer } from './BuyProcessLayout.styles';
 
+const addOnBuyTypes = [
+  BUY_CHAT_PLAN,
+  BUY_LANDING_PACK,
+  BUY_ONSITE_PLAN,
+  BUY_PUSH_NOTIFICATION_PLAN,
+  BUY_ECO_IA_PLAN,
+].map(String);
+
 export const getSteps = (buyType, user, pathname) => {
   const currentPathname = pathname.includes('/new-plan-selection')
     ? '/new-plan-selection'
@@ -87,6 +95,7 @@ export const BuyProcessLayout = InjectAppServices(
     const isNewPlanSelection = pathname === '/new-plan-selection';
     const isNewPlanSelectionFlow = isNewPlanSelection || query.get('newPlanSelection') === 'true';
     const isTrialAccount = appSessionRef.current.userData.user.plan?.isFreeAccount === true;
+    const firstStepBackUrl = addOnBuyTypes.includes(buyType) ? '/my-plan' : undefined;
     let steps = getSteps(
       buyType,
       appSessionRef.current.userData.user,
@@ -111,7 +120,7 @@ export const BuyProcessLayout = InjectAppServices(
       <BuyProcessLayoutContainer className={isTrialAccount ? 'dp-buy-process-trial' : ''}>
         <div className="dp-container">
           <div className="dp-buy-process-stepper-wrapper">
-            <Stepper steps={steps} mobileVariant />
+            <Stepper steps={steps} mobileVariant firstStepBackUrl={firstStepBackUrl} />
             <hr />
           </div>
           {children}

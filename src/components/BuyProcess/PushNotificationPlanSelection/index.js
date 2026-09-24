@@ -1,11 +1,11 @@
 import { useIntl } from 'react-intl';
 import { InjectAppServices } from '../../../services/pure-di';
 import HeaderSection from '../../shared/HeaderSection/HeaderSection';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
 import { PlanInformation } from './PlanInformation';
 import { Slider } from '../Slider';
 import { BannerUpgrade } from '../BannerUpgrade';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAddOnPlans } from '../../../hooks/useFetchAddOnPlans';
 import {
   AddOnType,
@@ -54,9 +54,6 @@ export const PushNotificationPlanSelection = InjectAppServices(
       handleSliderValue,
     ] = useAddOnPlans(AddOnType.PushNotifications, dopplerAccountPlansApiClient, appSessionRef);
 
-    const itemRef = useRef(null);
-    itemRef.current = item;
-
     const addItem = useCallback((item) => setItem(item), []);
     const removeItem = () => {
       setItem(null);
@@ -91,15 +88,20 @@ export const PushNotificationPlanSelection = InjectAppServices(
     }, [dopplerBillingUserApiClient]);
 
     useEffect(() => {
-      itemRef.current = selectedPlanIndex >= 1 ? selectedPlan : null;
-      if (item === null) {
-        if (itemRef.current) {
-          const pushNotificationsPromotion = pushNotificationsPromotions.filter(
-            (pn) => pn?.idAddOnPlan !== undefined && pn?.idAddOnPlan !== selectedPlan.planId,
-          )[0];
-          setShowPromotionInformation(pushNotificationsPromotion && !selectedPlan.active);
-          addItem(selectedPlan);
+      const selectedItem = selectedPlanIndex >= 1 ? selectedPlan : null;
+      if (!selectedItem) {
+        if (item) {
+          setItem(null);
         }
+        return;
+      }
+
+      if (!item || item.planId !== selectedItem.planId) {
+        const pushNotificationsPromotion = pushNotificationsPromotions.filter(
+          (pn) => pn?.idAddOnPlan !== undefined && pn?.idAddOnPlan !== selectedItem.planId,
+        )[0];
+        setShowPromotionInformation(pushNotificationsPromotion && !selectedItem.active);
+        addItem(selectedItem);
       }
     }, [selectedPlan, addItem, selectedPlanIndex, item, pushNotificationsPromotions]);
 
@@ -154,21 +156,6 @@ export const PushNotificationPlanSelection = InjectAppServices(
       handleSliderValue(_selectedPlanIndex);
     };
 
-    const handleSliderClick = () => {
-      if (itemRef.current) {
-        const pushNotificationsPromotion = pushNotificationsPromotions.filter(
-          (ps) => ps?.idAddOnPlan === undefined || ps?.idAddOnPlan === selectedPlan.planId,
-        )[0];
-        setShowPromotionInformation(
-          !pushNotificationsPromotion && pushNotificationsPromotions.length > 0,
-        );
-
-        addItem(selectedPlan);
-      } else {
-        setItem(null);
-      }
-    };
-
     if (loadingAddOnPlans || loading) {
       return <Loading page />;
     }
@@ -179,14 +166,14 @@ export const PushNotificationPlanSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
               {_('push_notification_selection.title')} <span className="dpicon iconapp-bell1" />
             </h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
               <PlanInformation />
@@ -203,7 +190,6 @@ export const PushNotificationPlanSelection = InjectAppServices(
                   moreOptionTickmark={{
                     label: _('push_notification_selection.more_option_tickmark_message'),
                   }}
-                  handleOnClick={handleSliderClick}
                 />
                 <BannerUpgrade
                   currentPlan={selectedPlan}
@@ -238,10 +224,7 @@ export const PushNotificationPlanSelection = InjectAppServices(
                   {_('push_notification_selection.expiration_free_plan_message')}
                 </span>
               </section>
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

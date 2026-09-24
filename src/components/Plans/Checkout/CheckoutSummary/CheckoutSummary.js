@@ -336,7 +336,7 @@ const PlanLandingPagesInformation1 = InjectAppServices(
         <h4 className="dp-tit-plan-purchased">
           {_(`checkoutProcessSuccess.landing_your_landings_pages_plan_title`)}
         </h4>
-        <ul className="dp-purchase-summary-list">
+        <ul className="dp-purchase-summary-list checkout-summary-landing-desktop">
           <li>
             <span>{_(`checkoutProcessSuccess.plan_type`)}</span>
             {selectedLandings.map((landingPack, index) => (
@@ -368,6 +368,33 @@ const PlanLandingPagesInformation1 = InjectAppServices(
               </React.Fragment>
             ))}
           </li>
+        </ul>
+        <ul className="dp-purchase-summary-list checkout-summary-landing-mobile">
+          <li className="checkout-summary-landing-detail-label">
+            <span>{_(`checkoutProcessSuccess.plan_type`)}</span>
+          </li>
+          {selectedLandings.map((landingPack, index) => (
+            <li className="checkout-summary-landing-pack" key={`landing-pack-summary-${index}`}>
+              <h4>
+                <FormattedMessage
+                  id="landing_selection.pack_of_landing_pages_with_plural"
+                  values={{
+                    packs: landingPack.landingsQty,
+                  }}
+                />
+              </h4>
+              <div className="checkout-summary-landing-pack-data">
+                <div>
+                  <span>{_(`checkoutProcessSuccess.landing_packages_title`)}</span>
+                  <h4>{landingPack.packagesQty}</h4>
+                </div>
+                <div>
+                  <span>{_(`checkoutProcessSuccess.landing_billing_title`)}</span>
+                  <h4>{_('buy_process.' + subscription_types[`discount_${planSubscription}`])}</h4>
+                </div>
+              </div>
+            </li>
+          ))}
         </ul>
       </>
     );

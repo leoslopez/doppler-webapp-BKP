@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { TooltipContainer } from '../../../../TooltipContainer/TooltipContainer';
 import { FormattedMessage } from 'react-intl';
 import { CheckoutLinkContainer, CheckoutLinkStyled } from '../index.style';
+import { MobileCheckoutAction } from '../../MobileCheckoutAction';
 
 export const getNewCheckoutPurchaseUrl = ({
   planId,
@@ -45,7 +46,7 @@ export const AddOnCheckoutLink = ({
 }) => {
   const { search } = useLocation();
 
-  return (
+  const checkoutLink = (
     <CheckoutLinkContainer>
       <TooltipContainer
         visible={showTooltip}
@@ -67,4 +68,6 @@ export const AddOnCheckoutLink = ({
       </TooltipContainer>
     </CheckoutLinkContainer>
   );
+
+  return <MobileCheckoutAction>{checkoutLink}</MobileCheckoutAction>;
 };

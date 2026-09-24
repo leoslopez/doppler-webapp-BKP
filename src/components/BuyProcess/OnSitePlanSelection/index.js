@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { InjectAppServices } from '../../../services/pure-di';
 import { AddOnType, BUY_ONSITE_PLAN, PLAN_TYPE, PaymentMethodType } from '../../../doppler-types';
 import { getMonthsByCycle, orderPaymentFrequencies } from '../../../utils';
@@ -8,7 +8,7 @@ import { Loading } from '../../Loading/Loading';
 import { UnexpectedError } from '../UnexpectedError';
 import { Slider } from '../Slider';
 import { SelectedOnSitePlan } from './SelectedOnSitePlan';
-import { GoBackButton } from '../PlanSelection/GoBackButton';
+import { AddOnGoBackSection } from '../AddOnGoBackSection';
 import { ShoppingCart } from '../ShoppingCart';
 import * as S from './styles';
 import { BannerUpgrade } from '../BannerUpgrade';
@@ -51,9 +51,6 @@ export const OnSitePlansSelection = InjectAppServices(
       handleSliderValue,
     ] = useAddOnPlans(AddOnType.OnSite, dopplerAccountPlansApiClient, appSessionRef);
 
-    const itemRef = useRef(null);
-    itemRef.current = item;
-
     const addItem = useCallback((item) => setItem(item), []);
     const removeItem = () => {
       setItem(null);
@@ -75,15 +72,20 @@ export const OnSitePlansSelection = InjectAppServices(
     );
 
     useEffect(() => {
-      itemRef.current = selectedPlanIndex >= 1 ? selectedPlan : null;
-      if (item === null) {
-        if (itemRef.current) {
-          const onSitePromotion = onSitePromotions.filter(
-            (pn) => pn?.idAddOnPlan !== undefined && pn?.idAddOnPlan !== selectedPlan.planId,
-          )[0];
-          setShowPromotionInformation(onSitePromotion && !selectedPlan.active);
-          addItem(selectedPlan);
+      const selectedItem = selectedPlanIndex >= 1 ? selectedPlan : null;
+      if (!selectedItem) {
+        if (item) {
+          setItem(null);
         }
+        return;
+      }
+
+      if (!item || item.planId !== selectedItem.planId) {
+        const onSitePromotion = onSitePromotions.filter(
+          (pn) => pn?.idAddOnPlan !== undefined && pn?.idAddOnPlan !== selectedItem.planId,
+        )[0];
+        setShowPromotionInformation(onSitePromotion && !selectedItem.active);
+        addItem(selectedItem);
       }
     }, [selectedPlan, selectedPlanIndex, item, addItem, onSitePromotions]);
 
@@ -151,19 +153,6 @@ export const OnSitePlansSelection = InjectAppServices(
       handleSliderValue(_selectedPlanIndex);
     };
 
-    const handleSliderClick = () => {
-      if (itemRef.current) {
-        const onSitePromotion = onSitePromotions.filter(
-          (os) => os?.idAddOnPlan === undefined || os?.idAddOnPlan === selectedPlan.planId,
-        )[0];
-        setShowPromotionInformation(!onSitePromotion && onSitePromotions.length > 0);
-
-        addItem(selectedPlan);
-      } else {
-        setItem(null);
-      }
-    };
-
     if (loadingAddOnPlans || loading) {
       return <Loading page />;
     }
@@ -174,14 +163,14 @@ export const OnSitePlansSelection = InjectAppServices(
 
     return (
       <>
-        <HeaderSection>
+        <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
               {_('onsite_selection.title')} <span className="dpicon iconapp-online-clothing" />
             </h2>
           </div>
         </HeaderSection>
-        <div className="dp-container p-b-48">
+        <div className="dp-container p-b-48 dp-add-on-selection">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
               <OnSitePlanInformation />
@@ -205,7 +194,6 @@ export const OnSitePlansSelection = InjectAppServices(
                   selectedItemIndex={selectedPlanIndex}
                   handleChange={handleSliderChange}
                   moreOptionTickmark={{ label: _('chat_selection.more_option_tickmark_message') }}
-                  handleOnClick={handleSliderClick}
                 />
                 <BannerUpgrade
                   currentPlan={selectedPlan}
@@ -240,10 +228,7 @@ export const OnSitePlansSelection = InjectAppServices(
                   {_('onsite_selection.expiration_free_plan_message')}
                 </span>
               </section>
-              <hr className="dp-separator" />
-              <div className="m-t-18 m-b-18">
-                <GoBackButton />
-              </div>
+              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

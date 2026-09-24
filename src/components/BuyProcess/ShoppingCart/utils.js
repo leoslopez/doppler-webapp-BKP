@@ -30,6 +30,43 @@ const numberFormatOptions = {
   useGrouping: true,
 };
 
+const addRecurringSubscriptionItems = ({
+  subscriptionItems,
+  isArgentinaTransfer,
+  amountDetailsData,
+  intl,
+  translate,
+}) => {
+  subscriptionItems.push(translate('buy_process.shopping_cart.renewal_description'));
+
+  if (isArgentinaTransfer && amountDetailsData?.value?.currencyDate) {
+    subscriptionItems.push(
+      <FormattedMessage
+        id="buy_process.shopping_cart.amount_with_quote"
+        values={{
+          quote:
+            '$' +
+            thousandSeparatorNumber(
+              intl.defaultLocale,
+              amountDetailsData?.value?.currencyRate ?? 0,
+            ),
+          date: intl.formatDate(new Date(amountDetailsData.value.currencyDate), {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour12: true,
+          }),
+          Bold: (chunk) => <strong>{chunk}</strong>,
+        }}
+      />,
+    );
+    subscriptionItems.push(translate('buy_process.shopping_cart.final_price_including_taxes'));
+    subscriptionItems.push(translate('buy_process.shopping_cart.next_invoices_estimate'));
+  } else {
+    subscriptionItems.push(translate('buy_process.shopping_cart.price_without_taxes'));
+  }
+};
+
 const getLegacyCheckoutPurchaseUrl = ({
   controlPanelUrl,
   planId,
@@ -507,41 +544,13 @@ export const mapItemFromMarketingPlan = ({
       }
     }
   } else {
-    planInformation.subscriptionItems.push(_('buy_process.shopping_cart.renewal_description'));
-    if (isArgentinaTransfer) {
-      if (amountDetailsData?.value?.currencyDate) {
-        planInformation.subscriptionItems.push(
-          <FormattedMessage
-            id={`buy_process.shopping_cart.amount_with_quote`}
-            values={{
-              quote:
-                '$' +
-                thousandSeparatorNumber(
-                  intl.defaultLocale,
-                  amountDetailsData?.value?.currencyRate ?? 0,
-                ),
-              date: intl.formatDate(new Date(amountDetailsData.value.currencyDate), {
-                day: 'numeric',
-                month: 'numeric',
-                year: 'numeric',
-                hour12: true,
-              }),
-              Bold: (chunk) => <strong>{chunk}</strong>,
-            }}
-          />,
-        );
-
-        planInformation.subscriptionItems.push(
-          _('buy_process.shopping_cart.final_price_including_taxes'),
-        );
-
-        planInformation.subscriptionItems.push(
-          _('buy_process.shopping_cart.next_invoices_estimate'),
-        );
-      }
-    } else {
-      planInformation.subscriptionItems.push(_('buy_process.shopping_cart.price_without_taxes'));
-    }
+    addRecurringSubscriptionItems({
+      subscriptionItems: planInformation.subscriptionItems,
+      isArgentinaTransfer,
+      amountDetailsData,
+      intl,
+      translate: _,
+    });
   }
 
   return planInformation;
@@ -859,8 +868,13 @@ export const mapItemFromLandingPackages = ({
     });
   }
 
-  LandingPackInformation.subscriptionItems.push(_('buy_process.shopping_cart.renewal_description'));
-  LandingPackInformation.subscriptionItems.push(_('buy_process.shopping_cart.price_without_taxes'));
+  addRecurringSubscriptionItems({
+    subscriptionItems: LandingPackInformation.subscriptionItems,
+    isArgentinaTransfer,
+    amountDetailsData,
+    intl,
+    translate: _,
+  });
 
   return LandingPackInformation;
 };
@@ -1414,8 +1428,13 @@ export const mapItemFromAddOnPlan = ({
     });
   }
 
-  addOnPlanInformation.subscriptionItems.push(_('buy_process.shopping_cart.renewal_description'));
-  addOnPlanInformation.subscriptionItems.push(_('buy_process.shopping_cart.price_without_taxes'));
+  addRecurringSubscriptionItems({
+    subscriptionItems: addOnPlanInformation.subscriptionItems,
+    isArgentinaTransfer,
+    amountDetailsData,
+    intl,
+    translate: _,
+  });
 
   return addOnPlanInformation;
 };
