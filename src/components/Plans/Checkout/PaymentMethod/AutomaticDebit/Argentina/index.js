@@ -116,7 +116,7 @@ export const AutomaticDebitArgentina = InjectAppServices(
             </FieldItem>
             {values[fieldNames.consumerType] && (
               <FieldItem className="field-item">
-                <FieldGroup>
+                <FieldGroup className="dp-automatic-debit-name-cbu-fields">
                   <InputFieldItem
                     type="text"
                     aria-label="rason social"
@@ -129,7 +129,7 @@ export const AutomaticDebitArgentina = InjectAppServices(
                     )}`}
                     withNameValidation
                     required
-                    className="field-item--50 dp-p-r"
+                    className="field-item--50"
                   />
                   <CbuFieldItem
                     aria-label="cbu"

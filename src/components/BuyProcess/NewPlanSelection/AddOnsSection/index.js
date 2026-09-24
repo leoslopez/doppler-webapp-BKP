@@ -5,6 +5,9 @@ import { InjectAppServices } from '../../../../services/pure-di';
 import { ACCOUNT_TYPE, FREE_ACCOUNT } from '../../../../utils';
 
 const CARDS_PER_PAGE = 3;
+const MOBILE_BREAKPOINT = '(max-width: 767px)';
+
+const getIsMobileViewport = () => window.matchMedia?.(MOBILE_BREAKPOINT).matches ?? false;
 
 const getCheapestPrice = (plans, priceField) => {
   const prices = plans
@@ -448,9 +451,11 @@ export const AddOnsSection = InjectAppServices(
     const [prices, setPrices] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isMobileViewport, setIsMobileViewport] = useState(getIsMobileViewport);
     const isSidebar = displayMode === 'sidebar';
-    const maxIndex = Math.max(Math.floor((addOns.length - 1) / CARDS_PER_PAGE) * CARDS_PER_PAGE, 0);
-    const visibleAddOns = addOns.slice(currentIndex, currentIndex + CARDS_PER_PAGE);
+    const cardsPerPage = isMobileViewport ? Math.max(addOns.length, 1) : CARDS_PER_PAGE;
+    const maxIndex = Math.max(Math.floor((addOns.length - 1) / cardsPerPage) * cardsPerPage, 0);
+    const visibleAddOns = addOns.slice(currentIndex, currentIndex + cardsPerPage);
     const addOnsToRender = isSidebar ? addOns : visibleAddOns;
     const hasAvailablePrice = Object.values(prices).some(
       (price) => Number.isFinite(price) && price > 0,
@@ -495,6 +500,20 @@ export const AddOnsSection = InjectAppServices(
     useEffect(() => {
       setCurrentIndex((index) => Math.min(index, maxIndex));
     }, [maxIndex]);
+
+    useEffect(() => {
+      const mediaQuery = window.matchMedia?.(MOBILE_BREAKPOINT);
+
+      if (!mediaQuery) {
+        return undefined;
+      }
+
+      const updateViewport = () => setIsMobileViewport(mediaQuery.matches);
+      updateViewport();
+      mediaQuery.addEventListener?.('change', updateViewport);
+
+      return () => mediaQuery.removeEventListener?.('change', updateViewport);
+    }, []);
 
     const handlePrevious = () => {
       setCurrentIndex((index) => Math.max(index - CARDS_PER_PAGE, 0));

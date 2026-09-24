@@ -22,7 +22,7 @@ import { ShoppingCart } from '../../BuyProcess/ShoppingCart';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { useFetchLandingPacks } from '../../../hooks/useFetchtLandingPacks';
 import { paymentFrequenciesListForLandingPacks } from '../../BuyProcess/LandingPacksSelection';
-import HeaderSection from '../../shared/HeaderSection/HeaderSection';
+import { CheckoutContainer, CheckoutHeader } from './Checkout.styles';
 import { GoBackButton } from '../../BuyProcess/NewPlanSelection/GoBackButton';
 import { NewPlanSelectionStyled } from '../../BuyProcess/NewPlanSelection/index.styles';
 
@@ -256,8 +256,8 @@ const Checkout = InjectAppServices(
       parseInt(buyType) === BUY_ECO_IA_PLAN;
 
     return (
-      <>
-        <HeaderSection>
+      <CheckoutContainer>
+        <CheckoutHeader>
           <div className="col-sm-12 col-md-12 col-lg-12">
             <NewPlanSelectionStyled>
               <div className="dp-new-plan-selection-back">
@@ -266,7 +266,7 @@ const Checkout = InjectAppServices(
             </NewPlanSelectionStyled>
             <h2 className="dp-first-order-title">{_('checkoutProcessForm.title')}</h2>
           </div>
-        </HeaderSection>
+        </CheckoutHeader>
         <div className="dp-container">
           <div className="dp-rowflex">
             <div className="col-md-12 col-lg-8 m-b-24">
@@ -419,8 +419,21 @@ const Checkout = InjectAppServices(
               )}
             </div>
           </div>
+          <div className="dp-rowflex dp-checkout-back-section">
+            <div className="col-lg-12 col-md-6 col-sm-12 m-b-24"></div>
+            <div className="col-sm-12 m-b-24">
+              <hr className="dp-h-divider" />
+              <button
+                type="button"
+                className="dp-button button-medium primary-grey m-t-30 m-r-24 dp-checkout-back-button"
+                onClick={() => window.history.back()}
+              >
+                {_('checkoutProcessForm.button_back')}
+              </button>
+            </div>
+          </div>
         </div>
-      </>
+      </CheckoutContainer>
     );
   },
 );

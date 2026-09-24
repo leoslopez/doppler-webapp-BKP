@@ -22,6 +22,16 @@
   color: #61dafb;
 }
 
+:root {
+  --dp-buy-process-menu-height: 70px;
+  --dp-buy-process-trial-menu-height: 104px;
+  --dp-buy-process-stepper-height: 54px;
+  --dp-buy-process-sticky-action-height: 76px;
+  --dp-buy-process-stepper-z-index: 40;
+  --dp-buy-process-menu-z-index: 50;
+  --dp-buy-process-sticky-action-z-index: 60;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -47,6 +57,22 @@
 
 .collapse-css-transition {
   transition: height 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 1199px) {
+  .dp-app-container {
+    padding-top: var(--dp-buy-process-menu-height);
+  }
+
+  #doppler-menu-mfe {
+    background: #fff;
+    height: var(--dp-buy-process-menu-height);
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: var(--dp-buy-process-menu-z-index);
+  }
 }
 
 /* Show and Hidden page */
@@ -142,4 +168,10 @@
 
 .dp-library .dp-line-through {
   text-decoration: line-through;
+}
+
+@media (max-width: 1199px) {
+  body .dp-container-steper.dp-new-plan-selection-stepper > ul.dp-steper {
+    display: none !important;
+  }
 }

@@ -9,3 +9,11 @@ export const CheckoutLinkStyled = styled.a`
     opacity: 0.4;
   }
 `;
+
+export const CheckoutLinkContainer = styled.div`
+  width: 100%;
+
+  .dp-tooltip-container {
+    width: 100%;
+  }
+`;

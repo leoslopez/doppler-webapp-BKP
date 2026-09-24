@@ -1,6 +1,7 @@
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { PLAN_TYPE } from '../../../../doppler-types';
+import { StickyPlanSummaryContainer } from './index.styles';
 
 const numberFormatOptions = {
   maximumFractionDigits: 2,
@@ -34,8 +35,8 @@ export const StickyPlanSummary = ({ summary }) => {
       : 'buy_process.new_plan_selection.sticky_contacts_subtitle';
   const amountLabel = summary.amountLabel ?? summary.contactsLabel;
 
-  return (
-    <section className="dp-new-plan-selection-sticky-summary" data-testid="dp-sticky-plan-summary">
+  const stickySummary = (
+    <StickyPlanSummaryContainer data-testid="dp-sticky-plan-summary" portal>
       <div className="dp-new-plan-selection-sticky-summary-content">
         <div className="dp-new-plan-selection-sticky-summary-copy">
           <h1 className="dp-new-plan-selection-sticky-summary-title">
@@ -134,14 +135,16 @@ export const StickyPlanSummary = ({ summary }) => {
           </Link>
         ) : summary.isDisabled ? (
           <button type="button" className="dp-button button-medium primary-green" disabled>
-            <FormattedMessage id="buy_process.new_plan_selection.sticky_default_cta" />
+            <FormattedMessage id="buy_process.new_plan_selection.sticky_choose_plan_cta" />
           </button>
         ) : (
           <a className="dp-button button-medium primary-green" href={summary.ctaHref}>
-            <FormattedMessage id="buy_process.new_plan_selection.sticky_default_cta" />
+            <FormattedMessage id="buy_process.new_plan_selection.sticky_choose_plan_cta" />
           </a>
         )}
       </div>
-    </section>
+    </StickyPlanSummaryContainer>
   );
+
+  return stickySummary;
 };

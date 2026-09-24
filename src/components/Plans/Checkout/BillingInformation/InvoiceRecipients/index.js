@@ -91,7 +91,7 @@ export const InvoiceRecipients = InjectAppServices(
               ))}
             </ul>
             <button
-              className="dp-button link-green m-t-18"
+              className="dp-button link-green m-t-18 dp-edit-invoice-recipients"
               onClick={() => setEdit(true)}
               aria-label="edit or add recipients"
             >

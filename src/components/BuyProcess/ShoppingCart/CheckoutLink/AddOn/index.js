@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { TooltipContainer } from '../../../../TooltipContainer/TooltipContainer';
 import { FormattedMessage } from 'react-intl';
-import { CheckoutLinkStyled } from '../index.style';
+import { CheckoutLinkContainer, CheckoutLinkStyled } from '../index.style';
 
 export const getNewCheckoutPurchaseUrl = ({
   planId,
@@ -46,23 +46,25 @@ export const AddOnCheckoutLink = ({
   const { search } = useLocation();
 
   return (
-    <TooltipContainer
-      visible={showTooltip}
-      content={<FormattedMessage id="plan_calculator.button_purchase_tooltip" />}
-      orientation="top"
-    >
-      <CheckoutLinkStyled
-        className={`dp-button button-big primary-green ${showTooltip || !canAddOnPlanContinueBuy ? 'disabled' : ''}`}
-        href={getBuyPurchaseUrl({
-          planId,
-          planType,
-          addOnPlanId,
-          monthPlan,
-          search,
-        })}
+    <CheckoutLinkContainer>
+      <TooltipContainer
+        visible={showTooltip}
+        content={<FormattedMessage id="plan_calculator.button_purchase_tooltip" />}
+        orientation="top"
       >
-        <FormattedMessage id="buy_process.continue" />
-      </CheckoutLinkStyled>
-    </TooltipContainer>
+        <CheckoutLinkStyled
+          className={`dp-button button-big primary-green ${showTooltip || !canAddOnPlanContinueBuy ? 'disabled' : ''}`}
+          href={getBuyPurchaseUrl({
+            planId,
+            planType,
+            addOnPlanId,
+            monthPlan,
+            search,
+          })}
+        >
+          <FormattedMessage id="buy_process.continue" />
+        </CheckoutLinkStyled>
+      </TooltipContainer>
+    </CheckoutLinkContainer>
   );
 };

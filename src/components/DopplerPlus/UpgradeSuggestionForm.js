@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import HeaderSection from '../shared/HeaderSection/HeaderSection';
 import { InjectAppServices } from '../../services/pure-di';
 import { Field } from 'formik';
 import {
@@ -19,6 +18,7 @@ import { NewPlanSelectionStyled } from '../BuyProcess/NewPlanSelection/index.sty
 import { GoBackButton } from '../BuyProcess/NewPlanSelection/GoBackButton';
 import useTimeout from '../../hooks/useTimeout';
 import { useHideAppMenu } from '../../hooks/useHideAppMenu';
+import { UpgradeSuggestionHeader } from './UpgradeSuggestionForm.styles';
 
 const UpgradeSuggestionForm = ({ dependencies: { dopplerLegacyClient, appSessionRef } }) => {
   const intl = useIntl();
@@ -71,7 +71,7 @@ const UpgradeSuggestionForm = ({ dependencies: { dopplerLegacyClient, appSession
         <title>{_('upgrade_suggestion_form.title')}</title>
         <meta name="description" content={_('upgrade_suggestion_form.meta_description')} />
       </Helmet>
-      <HeaderSection>
+      <UpgradeSuggestionHeader>
         <div className="col-sm-12 col-md-12 col-lg-12">
           <NewPlanSelectionStyled>
             <div className="dp-new-plan-selection-back p-b-12">
@@ -81,7 +81,7 @@ const UpgradeSuggestionForm = ({ dependencies: { dopplerLegacyClient, appSession
           <h2>{_('upgrade_suggestion_form.title')}</h2>
           <p>{_('upgrade_suggestion_form.description')}</p>
         </div>
-      </HeaderSection>
+      </UpgradeSuggestionHeader>
 
       <section className="dp-container">
         <div className="dp-rowflex">

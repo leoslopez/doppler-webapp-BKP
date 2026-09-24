@@ -49,6 +49,10 @@ export const NewPlanSelectionStyled = styled.div`
     padding-bottom: 10px;
   }
 
+  .dp-new-plan-selection-title-copy {
+    min-width: 0;
+  }
+
   .dp-new-plan-selection-subtitle {
     color: #666;
     margin: 0;
@@ -1139,9 +1143,6 @@ export const NewPlanSelectionStyled = styled.div`
       display: block;
     }
 
-    .dp-new-plan-selection-layout {
-    }
-
     .dp-new-plan-selection-sticky-summary-title {
       font-size: 20px;
     }
@@ -1216,6 +1217,45 @@ export const NewPlanSelectionStyled = styled.div`
   }
 
   @media (max-width: 767px) {
+    .dp-new-plan-selection-header {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .dp-new-plan-selection-title {
+      display: block;
+    }
+
+    .dp-new-plan-selection-title .dpicon {
+      display: inline-block;
+      margin-left: 8px;
+      padding-bottom: 0;
+      position: relative;
+      top: -4px;
+      vertical-align: middle;
+    }
+
+    .dp-new-plan-selection-back {
+      display: none;
+    }
+
+    /* stylelint-disable-next-line selector-descendant-combinator-no-non-space */
+    .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits)
+      .dp-new-plan-selection-price {
+      display: block;
+      margin-top: 16px;
+      padding-top: 0;
+    }
+
+    .dp-new-plan-selection-price-cta {
+      display: none;
+    }
+
+    .dp-new-plan-selection-price {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
     .dp-new-plan-selection-sticky-summary {
       left: 0;
       right: 0;
@@ -1248,11 +1288,75 @@ export const NewPlanSelectionStyled = styled.div`
 
     .dp-new-plan-selection-card-header {
       display: block;
+      margin-bottom: 16px;
     }
 
     .dp-new-plan-selection-badge {
-      display: inline-block;
-      margin-top: 12px;
+      display: none;
+    }
+
+    .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits) {
+      border: 0;
+      border-radius: 0;
+      margin-top: 16px;
+      padding: 20px;
+    }
+
+    /* stylelint-disable-next-line selector-descendant-combinator-no-non-space */
+    .dp-new-plan-selection-card:not(.dp-new-plan-selection-card-credits)
+      .dp-new-plan-selection-price::before {
+      display: none;
+    }
+
+    .dp-new-plan-selection-card-credits .dp-new-plan-selection-price-credits {
+      box-sizing: border-box;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .dp-new-plan-selection-plan-title h1 {
+      font-size: 16px;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    .dp-new-plan-selection-card-header p {
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .dp-new-plan-selection-fields {
+      gap: 12px;
+      padding-right: 0;
+    }
+
+    .dp-new-plan-selection-select-wrap .labelcontrol,
+    .dp-new-plan-selection-payment-frequency h4,
+    .dp-new-plan-selection-promocode .dp-form-promocode > p {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .dp-new-plan-selection-select {
+      min-height: 32px;
+    }
+
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency,
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency-en {
+      border-radius: 3px;
+      height: 32px;
+      margin: 6px 0 0;
+    }
+
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency .animation,
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency-en .animation {
+      border-width: 1px;
+    }
+
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency .dp-discount,
+    .dp-new-plan-selection-payment-frequency .dp-payment-frequency-en .dp-discount {
+      font-size: 10px;
+      top: -8px;
     }
 
     .dp-new-plan-selection-price-value {
@@ -1280,8 +1384,9 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-more-than-message {
-      align-items: flex-start;
-      display: block;
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
     }
 
     .dp-new-plan-selection-more-than-link {
@@ -1296,24 +1401,48 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-promocode .dp-form-promocode .field-group {
-      display: block;
+      align-items: flex-start;
+      display: flex;
+      gap: 4px;
+    }
+
+    .dp-new-plan-selection-promocode .dp-form-promocode .field-item--70 {
+      flex: 1 1 auto;
+      min-width: 0;
     }
 
     .dp-new-plan-selection-promocode .dp-form-promocode .field-item--30 {
-      margin-top: 8px;
+      align-self: flex-start;
+      flex: 0 0 66px;
+      margin: 0 !important;
+      padding: 0;
+      width: auto;
+    }
+
+    .dp-new-plan-selection-promocode .dp-form-promocode .field-item--30 .dp-button {
+      min-width: 0;
+      padding-left: 8px;
+      padding-right: 8px;
       width: 100%;
     }
 
     .dp-new-plan-selection-included-features-grid {
       gap: 16px;
       grid-template-columns: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .dp-new-plan-selection-included-features-subtitle {
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .dp-new-plan-selection-features-modal.modal-content--large {
       max-height: 90vh;
       max-width: calc(100% - 32px);
       overflow-y: auto;
-      padding: 22px 16px 18px;
+      padding: 34px 16px 18px;
     }
 
     .dp-new-plan-selection-features-modal .modal-title {
@@ -1321,7 +1450,19 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-addons-carousel {
-      gap: 10px;
+      display: block;
+    }
+
+    .dp-new-plan-selection-addons-carousel > .dp-arrow-left,
+    .dp-new-plan-selection-addons-carousel > .dp-arrow-right {
+      display: none;
+    }
+
+    .dp-new-plan-selection-addons-cards {
+      flex-direction: column;
+      gap: 16px;
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .dp-new-plan-selection-addons-sidebar-list {
@@ -1333,7 +1474,9 @@ export const NewPlanSelectionStyled = styled.div`
     }
 
     .dp-new-plan-selection-addon-card {
-      flex-basis: 100%;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      width: 100%;
     }
 
     .dp-new-plan-selection-addon-price-content {

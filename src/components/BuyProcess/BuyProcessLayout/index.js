@@ -11,6 +11,7 @@ import { useHideAppMenu } from '../../../hooks/useHideAppMenu';
 import { useQueryParams } from '../../../hooks/useQueryParams';
 import { InjectAppServices } from '../../../services/pure-di';
 import { Stepper } from '../Stepper';
+import { BuyProcessLayoutContainer } from './BuyProcessLayout.styles';
 
 export const getSteps = (buyType, user, pathname) => {
   const currentPathname = pathname.includes('/new-plan-selection')
@@ -83,31 +84,39 @@ export const BuyProcessLayout = InjectAppServices(
     const { pathname } = useLocation();
     const query = useQueryParams();
     const buyType = query.get('buyType') ?? '1';
-    let steps = getSteps(buyType, appSessionRef.current.userData.user, pathname).filter(
-      (s) => s.visible === true,
-    );
     const isNewPlanSelection = pathname === '/new-plan-selection';
+    const isNewPlanSelectionFlow = isNewPlanSelection || query.get('newPlanSelection') === 'true';
+    const isTrialAccount = appSessionRef.current.userData.user.plan?.isFreeAccount === true;
+    let steps = getSteps(
+      buyType,
+      appSessionRef.current.userData.user,
+      isNewPlanSelectionFlow ? '/new-plan-selection' : pathname,
+    ).filter((s) => s.visible === true);
 
     useHideAppMenu();
 
     if (isNewPlanSelection) {
       return (
-        <>
-          <div className="dp-container">
-            <Stepper steps={steps} />
+        <BuyProcessLayoutContainer className={isTrialAccount ? 'dp-buy-process-trial' : ''}>
+          <div className="dp-container dp-buy-process-stepper-wrapper">
+            <Stepper steps={steps} mobileVariant firstStepBackUrl="/my-plan" />
             <hr />
           </div>
           {children}
-        </>
+        </BuyProcessLayoutContainer>
       );
     }
 
     return (
-      <div className="dp-container">
-        <Stepper steps={steps} />
-        <hr />
-        {children}
-      </div>
+      <BuyProcessLayoutContainer className={isTrialAccount ? 'dp-buy-process-trial' : ''}>
+        <div className="dp-container">
+          <div className="dp-buy-process-stepper-wrapper">
+            <Stepper steps={steps} mobileVariant />
+            <hr />
+          </div>
+          {children}
+        </div>
+      </BuyProcessLayoutContainer>
     );
   },
 );

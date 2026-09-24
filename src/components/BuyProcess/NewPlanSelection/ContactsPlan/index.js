@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { PLAN_TYPE } from '../../../../doppler-types';
@@ -77,6 +77,7 @@ const getCheckoutUrl = ({ search, selectedPlan, selectedPaymentFrequency, promoc
   const canApplyPromocodeToCheckout =
     !selectedPaymentFrequency?.id || selectedPaymentFrequency?.applyPromo;
 
+  params.set('newPlanSelection', 'true');
   params.set('selected-plan', selectedPlan.id);
   params.delete('promo-code');
   params.delete('Promo-code');
@@ -326,7 +327,7 @@ export const ContactsPlan = InjectAppServices(
       ],
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       onStickySummaryChange?.(stickySummaryData);
     }, [onStickySummaryChange, stickySummaryData]);
 
@@ -581,17 +582,24 @@ export const ContactsPlan = InjectAppServices(
 
             {shouldUseAdvisorCta ? (
               <Link
-                className="dp-button button-medium primary-green dp-new-plan-selection-contact-advisor-cta"
+                className="dp-button button-medium primary-green dp-new-plan-selection-contact-advisor-cta dp-new-plan-selection-price-cta"
                 to="/upgrade-suggestion-form"
               >
                 <FormattedMessage id="buy_process.new_plan_selection.contact_advisor_cta" />
               </Link>
             ) : canChoosePlan ? (
-              <a className="dp-button button-medium primary-green" href={checkoutUrl}>
+              <a
+                className="dp-button button-medium primary-green dp-new-plan-selection-price-cta"
+                href={checkoutUrl}
+              >
                 <FormattedMessage id="buy_process.new_plan_selection.choose_plan" />
               </a>
             ) : (
-              <button type="button" className="dp-button button-medium primary-green" disabled>
+              <button
+                type="button"
+                className="dp-button button-medium primary-green dp-new-plan-selection-price-cta"
+                disabled
+              >
                 <FormattedMessage id="buy_process.new_plan_selection.choose_plan" />
               </button>
             )}

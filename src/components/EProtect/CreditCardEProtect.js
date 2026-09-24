@@ -9,6 +9,7 @@ import creditCards from '../../img/credit-cards.svg';
 import { CreditCardIcons } from '../Plans/Checkout/PaymentMethod/CreditCard';
 import { getEprotectConfig } from './eprotectConfig';
 import { fieldNames, paymentType } from '../Plans/Checkout/PaymentMethod/PaymentMethod';
+import { EProtectPayframe } from './CreditCardEProtect.styles';
 
 const EPROTECT_SCRIPT_URL =
   process.env.REACT_APP_EPROTECT_SCRIPT_URL ||
@@ -305,7 +306,7 @@ export const CreditCardEProtect = InjectAppServices(
               </div>
             </FieldItem>
             <FieldItem className="field-item">
-              <div id="eprotect-payframe" style={{ width: '400px' }}></div>
+              <EProtectPayframe id="eprotect-payframe" />
             </FieldItem>
           </>
         )}
