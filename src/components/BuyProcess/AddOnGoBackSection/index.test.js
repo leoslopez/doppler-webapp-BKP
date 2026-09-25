@@ -17,29 +17,27 @@ describe('AddOnGoBackSection', () => {
     window.matchMedia = originalMatchMedia;
   });
 
-  it('should hide the separator and back button on mobile', () => {
+  it('should show the back link on mobile', () => {
     window.matchMedia = jest.fn().mockReturnValue({
       addEventListener: jest.fn(),
       matches: true,
       removeEventListener: jest.fn(),
     });
 
-    const { container } = renderComponent();
+    renderComponent();
 
-    expect(container.querySelector('.dp-separator')).not.toBeInTheDocument();
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it('should show the separator and back button on desktop', () => {
+  it('should show the back link on desktop', () => {
     window.matchMedia = jest.fn().mockReturnValue({
       addEventListener: jest.fn(),
       matches: false,
       removeEventListener: jest.fn(),
     });
 
-    const { container } = renderComponent();
+    renderComponent();
 
-    expect(container.querySelector('.dp-separator')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });

@@ -179,6 +179,9 @@ export const EcoAIPlanSelection = InjectAppServices(
 
     return (
       <>
+        <div className="dp-container dp-add-on-selection p-t-24">
+          <AddOnGoBackSection />
+        </div>
         <HeaderSection className="dp-add-on-selection">
           <div className="col-sm-12 col-md-12 col-lg-12">
             <h2 className="dp-first-order-title">
@@ -213,7 +216,6 @@ export const EcoAIPlanSelection = InjectAppServices(
                   </div>
                 </section>
               )}
-              <AddOnGoBackSection />
             </div>
             <div className="col-lg-4 col-sm-12">
               <ShoppingCart

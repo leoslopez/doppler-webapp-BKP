@@ -7,6 +7,42 @@ export const BuyProcessLayoutContainer = styled.div`
     text-wrap: pretty;
   }
 
+  .hero-banner.dp-add-on-selection {
+    padding-top: 24px;
+  }
+
+  .dp-add-on-selection .dp-new-plan-selection-back {
+    margin-bottom: 8px;
+  }
+
+  .dp-add-on-selection .dp-new-plan-selection-back .dp-button.ctaTertiary {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: #33ad73;
+    display: inline-flex;
+    font-size: 13px;
+    gap: 0;
+    min-height: auto;
+    padding: 0;
+    text-decoration: none;
+
+    &::before {
+      content: '<';
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .dp-new-plan-selection-back-text {
+      text-decoration: underline;
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      color: #008046;
+    }
+  }
+
   @media (max-width: 1199px) {
     &.dp-buy-process-trial {
       --dp-buy-process-menu-height: var(--dp-buy-process-trial-menu-height);
