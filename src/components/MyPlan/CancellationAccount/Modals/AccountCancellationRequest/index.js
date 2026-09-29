@@ -141,7 +141,7 @@ export const AccountCancellationRequest = InjectAppServices(
     };
 
     return (
-      <div
+      <S.CancellationRequestModal
         className="modal"
         id={`modal-cancel-subscription${
           accountCancellationFlow === AccountCancellationFlow.free ? '-free-user' : ''
@@ -327,7 +327,7 @@ export const AccountCancellationRequest = InjectAppServices(
             </div>
           </section>
         </div>
-      </div>
+      </S.CancellationRequestModal>
     );
   },
 );

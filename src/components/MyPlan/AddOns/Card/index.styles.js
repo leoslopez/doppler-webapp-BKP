@@ -27,4 +27,71 @@ const PromotionAddOnFree = styled.p`
   padding-left: 6px;
 `;
 
-export { Text, Badge, PromotionAddOnFree };
+const AddOnCard = styled.div`
+  @media (max-width: 767px) {
+    .dp-addons-wrapper {
+      header {
+        padding: 18px 18px 0;
+      }
+
+      .dp-content-addons {
+        display: block;
+        padding: 0 18px 18px;
+
+        > div {
+          width: 100%;
+          max-width: 100%;
+          padding: 0;
+        }
+
+        > div::before {
+          display: none;
+        }
+
+        > div:first-child {
+          border-bottom: 1px solid #eaeaea;
+          margin-bottom: 16px;
+          padding-bottom: 16px;
+        }
+
+        > div:not(:first-child) {
+          margin-bottom: 16px;
+        }
+
+        > div:not(:first-child):last-child {
+          margin-bottom: 0;
+        }
+
+        h2,
+        .dp-legend-price,
+        .dp-disclaimer {
+          padding-left: 0;
+        }
+      }
+
+      .dp-footer-addons {
+        flex-direction: column;
+        gap: 16px;
+        padding: 18px;
+
+        > a:not(.dp-more-information),
+        > button {
+          order: 1;
+          width: 100%;
+        }
+
+        > a:not(.dp-more-information) .dp-button,
+        > button.dp-button {
+          width: 100%;
+        }
+
+        .dp-more-information {
+          order: 2;
+          text-align: center;
+        }
+      }
+    }
+  }
+`;
+
+export { AddOnCard, Text, Badge, PromotionAddOnFree };

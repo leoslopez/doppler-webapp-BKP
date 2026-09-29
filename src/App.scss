@@ -175,3 +175,34 @@
     display: none !important;
   }
 }
+
+@media (max-width: 767px) {
+  html.dp-library .modal [class*='modal-content--'],
+  html.dp-library .dp-modal [class*='modal-content--'] {
+    box-sizing: border-box;
+    width: calc(100% - 32px) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 16px auto !important;
+    padding: 24px !important;
+    top: 16px !important;
+  }
+
+  html.dp-library .modal .dp-group-buttons,
+  html.dp-library .dp-modal .dp-group-buttons,
+  html.dp-library .modal .buttons-container,
+  html.dp-library .dp-modal .buttons-container,
+  html.dp-library .modal .modal-container-buttons,
+  html.dp-library .dp-modal .modal-container-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  html.dp-library .modal .dp-group-buttons .dp-button,
+  html.dp-library .dp-modal .dp-group-buttons .dp-button,
+  html.dp-library .modal .modal-container-buttons .dp-button,
+  html.dp-library .dp-modal .modal-container-buttons .dp-button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
