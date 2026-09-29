@@ -17,7 +17,7 @@ export const Card = ({
   const _ = (id, values) => intl.formatMessage({ id: id }, values);
 
   return (
-    <div className="dp-box-shadow m-b-24">
+    <S.AddOnCard className="dp-box-shadow m-b-24">
       <section className="dp-addons-wrapper">
         {isNewFeature && (
           <div className="dp-ribbon dp-ribbon-top-right dp-ribbon-violet">
@@ -63,6 +63,6 @@ export const Card = ({
           )}
         </footer>
       </section>
-    </div>
+    </S.AddOnCard>
   );
 };
