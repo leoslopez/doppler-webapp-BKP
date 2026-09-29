@@ -7,6 +7,7 @@ import { AddOnExpiredMessage } from '../AddOnExpiredMessage';
 import { getPromotionInformationMessage } from '../utils';
 import { AddOnType, ConversationsEnvSource } from '../../../../../doppler-types';
 import { AddOnPlanCard } from '../AddOnPlanCard';
+import { ConversationPlanDetails } from './styles';
 
 export const ConversationPlan = InjectAppServices(
   ({
@@ -141,7 +142,7 @@ export const ConversationPlan = InjectAppServices(
           addOnType={AddOnType.Conversations}
           canCancel={plan.active && plan.fee > 0}
         >
-          <ul className="dp-item--plan">
+          <ConversationPlanDetails className="dp-item--plan">
             <li>
               <p>
                 <strong>
@@ -166,7 +167,7 @@ export const ConversationPlan = InjectAppServices(
                   </p>
                 </div>
                 <div className="col-lg-4 col-md-12">
-                  <p className="plan-item m-l-12">
+                  <p className="plan-item conversation-additional-message">
                     {!isFreeAccount && plan.fee > 0 ? (
                       <FormattedMessage
                         id={`my_plan.subscription_details.addon.conversation_plan.additional_conversation_message`}
@@ -235,7 +236,7 @@ export const ConversationPlan = InjectAppServices(
                 )}
               </p>
             </li>
-          </ul>
+          </ConversationPlanDetails>
         </AddOnPlanCard>
       </>
     );

@@ -195,9 +195,13 @@ export const BillingInformation = InjectAppServices(
                             label={`*${_('checkoutProcessForm.billing_information_firstname')}`}
                             withNameValidation
                             required
-                            className="field-item--50 dp-p-r"
+                            className="field-item"
                             disabled={sameAddressInformation}
                           />
+                        </FieldGroup>
+                      </FieldItem>
+                      <FieldItem className="field-item">
+                        <FieldGroup>
                           <InputFieldItem
                             type="text"
                             label={`*${_('checkoutProcessForm.billing_information_lastname')}`}
@@ -205,7 +209,7 @@ export const BillingInformation = InjectAppServices(
                             id="lastname"
                             withNameValidation
                             required
-                            className="field-item--50"
+                            className="field-item"
                             disabled={sameAddressInformation}
                           />
                         </FieldGroup>
@@ -217,6 +221,20 @@ export const BillingInformation = InjectAppServices(
                             fieldName={fieldNames.address}
                             id="address"
                             label={`*${_('checkoutProcessForm.billing_information_address')}`}
+                            withNameValidation
+                            required
+                            className="field-item"
+                            disabled={sameAddressInformation}
+                          />
+                        </FieldGroup>
+                      </FieldItem>
+                      <FieldItem className="field-item">
+                        <FieldGroup>
+                          <InputFieldItem
+                            type="text"
+                            fieldName={fieldNames.zipCode}
+                            id="zipCode"
+                            label={`*${_('checkoutProcessForm.billing_information_zip_code')}`}
                             withNameValidation
                             required
                             className="field-item--50 dp-p-r"
@@ -263,30 +281,18 @@ export const BillingInformation = InjectAppServices(
                       </FieldItem>
                       <FieldItem className="field-item">
                         <FieldGroup>
-                          <InputFieldItem
-                            type="text"
-                            fieldName={fieldNames.zipCode}
-                            id="zipCode"
-                            label={`*${_('checkoutProcessForm.billing_information_zip_code')}`}
-                            withNameValidation
-                            required
-                            className="field-item--50 dp-p-r"
-                            disabled={sameAddressInformation}
-                          />
                           <PhoneFieldItem
                             fieldName={fieldNames.phone}
                             id="phone"
                             label={`*${_('checkoutProcessForm.billing_information_phone')}`}
                             placeholder={_('forms.placeholder_phone')}
-                            className={`field-item--50 ${
-                              sameAddressInformation ? 'dp-flag-disabled' : ''
-                            }`}
+                            className={`field-item ${sameAddressInformation ? 'dp-flag-disabled' : ''}`}
                             required
                             disabled={sameAddressInformation}
                           />
                         </FieldGroup>
                       </FieldItem>
-                      <FieldItem className="field-item field-item--50 dp-p-r">
+                      <FieldItem className="field-item">
                         <InvoiceRecipients viewOnly={true} selectedPlan={selectedPlan} />
                       </FieldItem>
                     </FieldGroup>
