@@ -7,6 +7,7 @@ import { AddOnType } from '../../../../../doppler-types';
 import { AddOnExpiredMessage } from '../AddOnExpiredMessage';
 import { getPromotionInformationMessage } from '../utils';
 import { AddOnPlanCard } from '../AddOnPlanCard';
+import { OnSitePlanStyled } from './styles';
 
 export const OnSitePlan = InjectAppServices(
   ({
@@ -62,94 +63,96 @@ export const OnSitePlan = InjectAppServices(
 
     return (
       <>
-        <AddOnPlanCard
-          title={_(`my_plan.subscription_details.addon.onsite_plan.title`)}
-          iconClassName="dpicon iconapp-online-clothing"
-          description={
-            plan.trialExpired ? (
-              <AddOnExpiredMessage />
-            ) : !plan.trialExpired && plan.fee === 0 ? (
-              <p>
-                {_(
-                  `my_plan.subscription_details.addon.onsite_plan.${
-                    isFreeAccount && !plan.active ? 'start_free_label' : 'free_label'
-                  }`,
-                )}
-              </p>
-            ) : null
-          }
-          actions={
-            <>
-              <a
-                type="button"
-                href={buyUrl}
-                className="dp-button button-medium primary-green dp-w-100 m-b-12"
-              >
-                {_(
-                  `my_plan.subscription_details.${
-                    plan.trialExpired
-                      ? 'view_plans_button'
-                      : (isFreeAccount || addOnPromotions.length > 0) && !plan.active
-                        ? 'activate_now_button'
-                        : 'change_plan_button'
-                  }`,
-                )}
-              </a>
-            </>
-          }
-          showPromotionInformation={showPromotionInformation}
-          promotionInformation={getPromotionInformationMessage(
-            'onsite',
-            appSessionRef.current.userData.user,
-            addOnPromotions,
-          )}
-          addOnType={AddOnType.OnSite}
-          canCancel={plan.active && plan.fee > 0}
-        >
-          <ul className="dp-item--plan">
-            <li>
-              <p>
-                <strong>
-                  <FormattedMessage
-                    id={'my_plan.subscription_details.addon.onsite_plan.plan_message'}
-                    values={{
-                      total: plan.quantity,
-                    }}
-                  />
-                </strong>
-              </p>
-              <div className="dp-rowflex">
-                <div className="col-lg-5 col-md-12">
-                  <p className="plan-item">
+        <OnSitePlanStyled>
+          <AddOnPlanCard
+            title={_(`my_plan.subscription_details.addon.onsite_plan.title`)}
+            iconClassName="dpicon iconapp-online-clothing"
+            description={
+              plan.trialExpired ? (
+                <AddOnExpiredMessage />
+              ) : !plan.trialExpired && plan.fee === 0 ? (
+                <p>
+                  {_(
+                    `my_plan.subscription_details.addon.onsite_plan.${
+                      isFreeAccount && !plan.active ? 'start_free_label' : 'free_label'
+                    }`,
+                  )}
+                </p>
+              ) : null
+            }
+            actions={
+              <>
+                <a
+                  type="button"
+                  href={buyUrl}
+                  className="dp-button button-medium primary-green dp-w-100 m-b-12"
+                >
+                  {_(
+                    `my_plan.subscription_details.${
+                      plan.trialExpired
+                        ? 'view_plans_button'
+                        : (isFreeAccount || addOnPromotions.length > 0) && !plan.active
+                          ? 'activate_now_button'
+                          : 'change_plan_button'
+                    }`,
+                  )}
+                </a>
+              </>
+            }
+            showPromotionInformation={showPromotionInformation}
+            promotionInformation={getPromotionInformationMessage(
+              'onsite',
+              appSessionRef.current.userData.user,
+              addOnPromotions,
+            )}
+            addOnType={AddOnType.OnSite}
+            canCancel={plan.active && plan.fee > 0}
+          >
+            <ul className="dp-item--plan">
+              <li>
+                <p>
+                  <strong>
                     <FormattedMessage
-                      id={`my_plan.subscription_details.addon.onsite_plan.available_message`}
+                      id={'my_plan.subscription_details.addon.onsite_plan.plan_message'}
                       values={{
-                        available: availableQuantity,
                         total: plan.quantity,
                       }}
                     />
-                  </p>
-                </div>
-                <div className="col-lg-4 col-md-12">
-                  <p className="plan-item m-l-12">
-                    {!isFreeAccount && plan.fee > 0 ? (
+                  </strong>
+                </p>
+                <div className="dp-rowflex">
+                  <div className="col-lg-5 col-md-12">
+                    <p className="plan-item">
                       <FormattedMessage
-                        id={`my_plan.subscription_details.addon.onsite_plan.additional_impression_message`}
+                        id={`my_plan.subscription_details.addon.onsite_plan.available_message`}
                         values={{
-                          price: formattedNumber(plan.additional, 4),
+                          available: availableQuantity,
+                          total: plan.quantity,
                         }}
                       />
-                    ) : (
-                      <FormattedMessage
-                        id={`my_plan.subscription_details.addon.onsite_plan.free_additional_impression_message`}
-                      />
-                    )}
-                  </p>
+                    </p>
+                  </div>
+                  <div className="col-lg-4 col-md-12">
+                    <p className="plan-item m-l-12 onsite-additional-impression">
+                      {!isFreeAccount && plan.fee > 0 ? (
+                        <FormattedMessage
+                          id={`my_plan.subscription_details.addon.onsite_plan.additional_impression_message`}
+                          values={{
+                            price: formattedNumber(plan.additional, 4),
+                          }}
+                        />
+                      ) : (
+                        <FormattedMessage
+                          id={`my_plan.subscription_details.addon.onsite_plan.free_additional_impression_message`}
+                        />
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </AddOnPlanCard>
+              </li>
+            </ul>
+          </AddOnPlanCard>
+        </OnSitePlanStyled>
       </>
     );
   },
