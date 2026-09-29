@@ -33,5 +33,13 @@ export const CancellationRequestModal = styled.div`
       width: 100%;
       margin-right: 0;
     }
+
+    .buttons-container .primary-green {
+      order: 1;
+    }
+
+    .buttons-container .secondary-green {
+      order: 2;
+    }
   }
 `;
