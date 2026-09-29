@@ -177,15 +177,24 @@
 }
 
 @media (max-width: 767px) {
+  html.dp-library .modal,
+  html.dp-library .dp-modal {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+  }
+
   html.dp-library .modal [class*='modal-content--'],
   html.dp-library .dp-modal [class*='modal-content--'] {
     box-sizing: border-box;
     width: calc(100% - 32px) !important;
     max-width: none !important;
     min-width: 0 !important;
-    margin: 16px auto !important;
+    margin: 0 !important;
     padding: 24px !important;
-    top: 16px !important;
+    top: 0 !important;
   }
 
   html.dp-library .modal .dp-group-buttons,
