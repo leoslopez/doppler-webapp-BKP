@@ -196,7 +196,7 @@ export const AdditionalServicesForm = InjectAppServices(
       <section className="dp-container">
         <div className="dp-rowflex">
           <div className="col-lg-8 col-md-12 m-b-24">
-            <div className="dp-wrapper-additional-services-form">
+            <S.AdditionalServicesFormWrapper className="dp-wrapper-additional-services-form">
               <FormWithCaptcha
                 onSubmit={onSubmit}
                 initialValues={_getFormInitialValues()}
@@ -356,7 +356,7 @@ export const AdditionalServicesForm = InjectAppServices(
                   </div>
                 </fieldset>
               </FormWithCaptcha>
-            </div>
+            </S.AdditionalServicesFormWrapper>
           </div>
         </div>
       </section>
