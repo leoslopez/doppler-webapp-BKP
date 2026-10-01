@@ -15,6 +15,7 @@ import { getCountries, getFormInitialValues } from '../../../../utils';
 import { Loading } from '../../../Loading/Loading';
 import { useQueryParams } from '../../../../hooks/useQueryParams';
 import { InvoiceRecipients } from './InvoiceRecipients';
+import { ResponsiveFields } from '../ResponsiveFields';
 
 const fieldNames = {
   sameAddressAsContact: 'sameAddressAsContact',
@@ -170,132 +171,128 @@ export const BillingInformation = InjectAppServices(
                 <Form className="dp-form-billing-information">
                   <legend>{_('checkoutProcessForm.billing_information_title')}</legend>
                   <fieldset className="dp-form-fields">
-                    <FieldGroup>
-                      <FieldItem className="field-item">
-                        <fieldset>
+                    <ResponsiveFields>
+                      <FieldGroup>
+                        <FieldItem className="field-item">
+                          <fieldset>
+                            <FieldGroup>
+                              <CheckboxFieldItem
+                                fieldName="sameAddressAsContact"
+                                key="sameAddressAsContact"
+                                label={_('checkoutProcessForm.billing_information_same_address')}
+                                id="sameAddressAsContact"
+                                onChange={(e) => {
+                                  handleSameAddressChange(e, setFieldValue);
+                                }}
+                              />
+                            </FieldGroup>
+                          </fieldset>
+                        </FieldItem>
+                        <FieldItem className="field-item">
                           <FieldGroup>
-                            <CheckboxFieldItem
-                              fieldName="sameAddressAsContact"
-                              key="sameAddressAsContact"
-                              label={_('checkoutProcessForm.billing_information_same_address')}
-                              id="sameAddressAsContact"
-                              onChange={(e) => {
-                                handleSameAddressChange(e, setFieldValue);
-                              }}
+                            <InputFieldItem
+                              type="text"
+                              fieldName={fieldNames.firstname}
+                              id="firstname"
+                              label={`*${_('checkoutProcessForm.billing_information_firstname')}`}
+                              withNameValidation
+                              required
+                              className="field-item--50 dp-p-r"
+                              disabled={sameAddressInformation}
+                            />
+                            <InputFieldItem
+                              type="text"
+                              label={`*${_('checkoutProcessForm.billing_information_lastname')}`}
+                              fieldName={fieldNames.lastname}
+                              id="lastname"
+                              withNameValidation
+                              required
+                              className="field-item--50"
+                              disabled={sameAddressInformation}
                             />
                           </FieldGroup>
-                        </fieldset>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <InputFieldItem
-                            type="text"
-                            fieldName={fieldNames.firstname}
-                            id="firstname"
-                            label={`*${_('checkoutProcessForm.billing_information_firstname')}`}
-                            withNameValidation
-                            required
-                            className="field-item"
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <InputFieldItem
-                            type="text"
-                            label={`*${_('checkoutProcessForm.billing_information_lastname')}`}
-                            fieldName={fieldNames.lastname}
-                            id="lastname"
-                            withNameValidation
-                            required
-                            className="field-item"
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <InputFieldItem
-                            type="text"
-                            fieldName={fieldNames.address}
-                            id="address"
-                            label={`*${_('checkoutProcessForm.billing_information_address')}`}
-                            withNameValidation
-                            required
-                            className="field-item"
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <InputFieldItem
-                            type="text"
-                            fieldName={fieldNames.zipCode}
-                            id="zipCode"
-                            label={`*${_('checkoutProcessForm.billing_information_zip_code')}`}
-                            withNameValidation
-                            required
-                            className="field-item--50 dp-p-r"
-                            disabled={sameAddressInformation}
-                          />
-                          <InputFieldItem
-                            type="text"
-                            label={`*${_('checkoutProcessForm.billing_information_city')}`}
-                            fieldName={fieldNames.city}
-                            id="city"
-                            withNameValidation
-                            required
-                            className="field-item--50"
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <SelectFieldItem
-                            fieldName={fieldNames.province}
-                            id="province"
-                            label={`*${_('checkoutProcessForm.billing_information_province')}`}
-                            defaultOption={defaultOption}
-                            values={states}
-                            required
-                            className="field-item--50 dp-p-r"
-                            disabled={sameAddressInformation}
-                          />
-                          <SelectFieldItem
-                            fieldName={fieldNames.country}
-                            id="country"
-                            label={`*${_('checkoutProcessForm.billing_information_country')}`}
-                            defaultOption={defaultOption}
-                            values={getCountries(language)}
-                            required
-                            className="field-item--50"
-                            onChange={(e) => {
-                              changeCountry(e, setFieldValue);
-                            }}
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <FieldGroup>
-                          <PhoneFieldItem
-                            fieldName={fieldNames.phone}
-                            id="phone"
-                            label={`*${_('checkoutProcessForm.billing_information_phone')}`}
-                            placeholder={_('forms.placeholder_phone')}
-                            className={`field-item ${sameAddressInformation ? 'dp-flag-disabled' : ''}`}
-                            required
-                            disabled={sameAddressInformation}
-                          />
-                        </FieldGroup>
-                      </FieldItem>
-                      <FieldItem className="field-item">
-                        <InvoiceRecipients viewOnly={true} selectedPlan={selectedPlan} />
-                      </FieldItem>
-                    </FieldGroup>
+                        </FieldItem>
+                        <FieldItem className="field-item">
+                          <FieldGroup>
+                            <InputFieldItem
+                              type="text"
+                              fieldName={fieldNames.address}
+                              id="address"
+                              label={`*${_('checkoutProcessForm.billing_information_address')}`}
+                              withNameValidation
+                              required
+                              className="field-item--50 dp-p-r"
+                              disabled={sameAddressInformation}
+                            />
+                            <InputFieldItem
+                              type="text"
+                              label={`*${_('checkoutProcessForm.billing_information_city')}`}
+                              fieldName={fieldNames.city}
+                              id="city"
+                              withNameValidation
+                              required
+                              className="field-item--50"
+                              disabled={sameAddressInformation}
+                            />
+                          </FieldGroup>
+                        </FieldItem>
+                        <FieldItem className="field-item">
+                          <FieldGroup>
+                            <SelectFieldItem
+                              fieldName={fieldNames.province}
+                              id="province"
+                              label={`*${_('checkoutProcessForm.billing_information_province')}`}
+                              defaultOption={defaultOption}
+                              values={states}
+                              required
+                              className="field-item--50 dp-p-r"
+                              disabled={sameAddressInformation}
+                            />
+                            <SelectFieldItem
+                              fieldName={fieldNames.country}
+                              id="country"
+                              label={`*${_('checkoutProcessForm.billing_information_country')}`}
+                              defaultOption={defaultOption}
+                              values={getCountries(language)}
+                              required
+                              className="field-item--50"
+                              onChange={(e) => {
+                                changeCountry(e, setFieldValue);
+                              }}
+                              disabled={sameAddressInformation}
+                            />
+                          </FieldGroup>
+                        </FieldItem>
+                        <FieldItem className="field-item">
+                          <FieldGroup>
+                            <InputFieldItem
+                              type="text"
+                              fieldName={fieldNames.zipCode}
+                              id="zipCode"
+                              label={`*${_('checkoutProcessForm.billing_information_zip_code')}`}
+                              withNameValidation
+                              required
+                              className="field-item--50 dp-p-r"
+                              disabled={sameAddressInformation}
+                            />
+                            <PhoneFieldItem
+                              fieldName={fieldNames.phone}
+                              id="phone"
+                              label={`*${_('checkoutProcessForm.billing_information_phone')}`}
+                              placeholder={_('forms.placeholder_phone')}
+                              className={`field-item--50 ${
+                                sameAddressInformation ? 'dp-flag-disabled' : ''
+                              }`}
+                              required
+                              disabled={sameAddressInformation}
+                            />
+                          </FieldGroup>
+                        </FieldItem>
+                        <FieldItem className="field-item field-item--50 dp-p-r">
+                          <InvoiceRecipients viewOnly={true} selectedPlan={selectedPlan} />
+                        </FieldItem>
+                      </FieldGroup>
+                    </ResponsiveFields>
                   </fieldset>
                   <fieldset className="dp-footer-button m-t-18">
                     <div className="dp-buttons-actions">
