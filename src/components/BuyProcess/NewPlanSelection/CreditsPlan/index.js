@@ -142,7 +142,7 @@ export const CreditsPlan = InjectAppServices(
           </div>
 
           <div className="dp-rowflex dp-new-plan-selection-main dp-new-plan-selection-main-credits">
-            <div className="col-lg-5 col-md-6">
+            <div className="col-lg-5 col-md-12">
               <div className="dp-new-plan-selection-fields dp-new-plan-selection-fields-credits">
                 <div className="dp-new-plan-selection-select-wrap">
                   <h2 id="new-plan-selection-credits-label" className="labelcontrol">
@@ -198,7 +198,7 @@ export const CreditsPlan = InjectAppServices(
             </div>
 
             <aside
-              className="col-lg-7 col-md-6 dp-new-plan-selection-price dp-new-plan-selection-price-credits"
+              className="col-lg-7 col-md-12 dp-new-plan-selection-price dp-new-plan-selection-price-credits"
               aria-live="polite"
             >
               <span className="dp-new-plan-selection-price-label">
