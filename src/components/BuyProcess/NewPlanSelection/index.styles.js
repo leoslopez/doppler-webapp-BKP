@@ -1243,6 +1243,11 @@ export const NewPlanSelectionStyled = styled.div`
       right: 0;
       top: 0;
     }
+
+    .dp-new-plan-selection-included-features-grid {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   @media (max-width: 767px) {
