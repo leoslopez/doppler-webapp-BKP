@@ -32,7 +32,7 @@ export const CheckoutContainer = styled.div`
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1199px) {
     .dp-wrapper-payment-process .dp-edit-invoice-recipients {
       white-space: nowrap;
     }
