@@ -236,7 +236,7 @@ export const EmailsPlan = InjectAppServices(
         </div>
 
         <div className="dp-rowflex dp-new-plan-selection-main">
-          <div className="col-lg-6 col-md-12">
+          <div className="col-lg-6 col-md-6">
             <div className="dp-new-plan-selection-fields">
               <div className="dp-new-plan-selection-select-wrap">
                 <h2 className="labelcontrol">
@@ -363,7 +363,7 @@ export const EmailsPlan = InjectAppServices(
             </div>
           </div>
 
-          <aside className="col-lg-6 col-md-12 dp-new-plan-selection-price" aria-live="polite">
+          <aside className="col-lg-6 col-md-6 dp-new-plan-selection-price" aria-live="polite">
             <span className="dp-new-plan-selection-price-label">
               <FormattedMessage id="buy_process.new_plan_selection.price_label" />
             </span>

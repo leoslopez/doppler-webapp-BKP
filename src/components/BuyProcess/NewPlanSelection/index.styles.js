@@ -133,7 +133,7 @@ export const NewPlanSelectionStyled = styled.div`
   }
 
   .dp-new-plan-selection-card-credits-content {
-    padding: 0;
+    padding: 12px;
   }
 
   .dp-new-plan-selection-credits-fullwidth {
