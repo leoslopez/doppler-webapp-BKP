@@ -171,9 +171,9 @@ export const BillingInformation = InjectAppServices(
                 <Form className="dp-form-billing-information">
                   <legend>{_('checkoutProcessForm.billing_information_title')}</legend>
                   <fieldset className="dp-form-fields">
-                    <ResponsiveFields>
+                    <ResponsiveFields className="billing-information-fields">
                       <FieldGroup>
-                        <FieldItem className="field-item">
+                        <FieldItem className="field-item billing-field-checkbox">
                           <fieldset>
                             <FieldGroup>
                               <CheckboxFieldItem
@@ -188,7 +188,7 @@ export const BillingInformation = InjectAppServices(
                             </FieldGroup>
                           </fieldset>
                         </FieldItem>
-                        <FieldItem className="field-item">
+                        <FieldItem className="field-item billing-field-group">
                           <FieldGroup>
                             <InputFieldItem
                               type="text"
@@ -197,7 +197,7 @@ export const BillingInformation = InjectAppServices(
                               label={`*${_('checkoutProcessForm.billing_information_firstname')}`}
                               withNameValidation
                               required
-                              className="field-item--50 dp-p-r"
+                              className="field-item--50 dp-p-r billing-field-full billing-field-firstname"
                               disabled={sameAddressInformation}
                             />
                             <InputFieldItem
@@ -207,12 +207,12 @@ export const BillingInformation = InjectAppServices(
                               id="lastname"
                               withNameValidation
                               required
-                              className="field-item--50"
+                              className="field-item--50 billing-field-full billing-field-lastname"
                               disabled={sameAddressInformation}
                             />
                           </FieldGroup>
                         </FieldItem>
-                        <FieldItem className="field-item">
+                        <FieldItem className="field-item billing-field-group">
                           <FieldGroup>
                             <InputFieldItem
                               type="text"
@@ -221,7 +221,7 @@ export const BillingInformation = InjectAppServices(
                               label={`*${_('checkoutProcessForm.billing_information_address')}`}
                               withNameValidation
                               required
-                              className="field-item--50 dp-p-r"
+                              className="field-item--50 dp-p-r billing-field-full billing-field-address"
                               disabled={sameAddressInformation}
                             />
                             <InputFieldItem
@@ -231,12 +231,12 @@ export const BillingInformation = InjectAppServices(
                               id="city"
                               withNameValidation
                               required
-                              className="field-item--50"
+                              className="field-item--50 billing-field-city"
                               disabled={sameAddressInformation}
                             />
                           </FieldGroup>
                         </FieldItem>
-                        <FieldItem className="field-item">
+                        <FieldItem className="field-item billing-field-group">
                           <FieldGroup>
                             <SelectFieldItem
                               fieldName={fieldNames.province}
@@ -245,7 +245,7 @@ export const BillingInformation = InjectAppServices(
                               defaultOption={defaultOption}
                               values={states}
                               required
-                              className="field-item--50 dp-p-r"
+                              className="field-item--50 dp-p-r billing-field-province"
                               disabled={sameAddressInformation}
                             />
                             <SelectFieldItem
@@ -255,7 +255,7 @@ export const BillingInformation = InjectAppServices(
                               defaultOption={defaultOption}
                               values={getCountries(language)}
                               required
-                              className="field-item--50"
+                              className="field-item--50 billing-field-country"
                               onChange={(e) => {
                                 changeCountry(e, setFieldValue);
                               }}
@@ -263,7 +263,7 @@ export const BillingInformation = InjectAppServices(
                             />
                           </FieldGroup>
                         </FieldItem>
-                        <FieldItem className="field-item">
+                        <FieldItem className="field-item billing-field-group">
                           <FieldGroup>
                             <InputFieldItem
                               type="text"
@@ -272,7 +272,7 @@ export const BillingInformation = InjectAppServices(
                               label={`*${_('checkoutProcessForm.billing_information_zip_code')}`}
                               withNameValidation
                               required
-                              className="field-item--50 dp-p-r"
+                              className="field-item--50 dp-p-r billing-field-zip-code"
                               disabled={sameAddressInformation}
                             />
                             <PhoneFieldItem
@@ -280,7 +280,7 @@ export const BillingInformation = InjectAppServices(
                               id="phone"
                               label={`*${_('checkoutProcessForm.billing_information_phone')}`}
                               placeholder={_('forms.placeholder_phone')}
-                              className={`field-item--50 ${
+                              className={`field-item--50 billing-field-full billing-field-phone ${
                                 sameAddressInformation ? 'dp-flag-disabled' : ''
                               }`}
                               required
@@ -288,7 +288,7 @@ export const BillingInformation = InjectAppServices(
                             />
                           </FieldGroup>
                         </FieldItem>
-                        <FieldItem className="field-item field-item--50 dp-p-r">
+                        <FieldItem className="field-item field-item--50 dp-p-r billing-field-invoice-recipients">
                           <InvoiceRecipients viewOnly={true} selectedPlan={selectedPlan} />
                         </FieldItem>
                       </FieldGroup>

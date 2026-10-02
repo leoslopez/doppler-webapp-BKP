@@ -137,7 +137,7 @@ export const ContactInformation = InjectAppServices(
               <Form className="dp-form-payment-process">
                 <legend>{_('checkoutProcessForm.contact_information_title')}</legend>
                 <fieldset className="dp-form-fields">
-                  <ResponsiveFields>
+                  <ResponsiveFields className="contact-information-fields">
                     <FieldGroup>
                       <FieldItem className="field-item">
                         <FieldGroup>
@@ -148,7 +148,7 @@ export const ContactInformation = InjectAppServices(
                             label={`*${_('checkoutProcessForm.contact_information_firstname')}`}
                             withNameValidation
                             required
-                            className="field-item--50 dp-p-r"
+                            className="field-item--50 dp-p-r contact-field-full contact-field-firstname"
                           />
                           <InputFieldItem
                             type="text"
@@ -157,7 +157,7 @@ export const ContactInformation = InjectAppServices(
                             id="lastname"
                             withNameValidation
                             required
-                            className="field-item--50"
+                            className="field-item--50 contact-field-full contact-field-lastname"
                           />
                         </FieldGroup>
                       </FieldItem>
@@ -170,7 +170,7 @@ export const ContactInformation = InjectAppServices(
                             label={`*${_('checkoutProcessForm.contact_information_address')}`}
                             withNameValidation
                             required
-                            className="field-item--50 dp-p-r"
+                            className="field-item--50 dp-p-r contact-field-full contact-field-address"
                           />
                           <InputFieldItem
                             type="text"
@@ -179,7 +179,7 @@ export const ContactInformation = InjectAppServices(
                             id="city"
                             withNameValidation
                             required
-                            className="field-item--50"
+                            className="field-item--50 contact-field-city"
                           />
                         </FieldGroup>
                       </FieldItem>
@@ -192,7 +192,7 @@ export const ContactInformation = InjectAppServices(
                             defaultOption={defaultOption}
                             values={states}
                             required
-                            className="field-item--50 dp-p-r"
+                            className="field-item--50 dp-p-r contact-field-province"
                           />
                           <SelectFieldItem
                             fieldName={fieldNames.country}
@@ -201,7 +201,7 @@ export const ContactInformation = InjectAppServices(
                             defaultOption={defaultOption}
                             values={getCountries(language)}
                             required
-                            className="field-item--50"
+                            className="field-item--50 contact-field-country"
                             onChange={(e) => {
                               changeCountry(e, setFieldValue);
                             }}
@@ -216,7 +216,7 @@ export const ContactInformation = InjectAppServices(
                             id="zipCode"
                             label={`*${_('checkoutProcessForm.contact_information_zip_code')}`}
                             withNameValidation
-                            className="field-item--50 dp-p-r"
+                            className="field-item--50 dp-p-r contact-field-zip-code"
                             required
                           />
                           <PhoneFieldItem
@@ -224,7 +224,7 @@ export const ContactInformation = InjectAppServices(
                             id="phone"
                             label={`*${_('checkoutProcessForm.contact_information_phone')}`}
                             placeholder={_('forms.placeholder_phone')}
-                            className="field-item--50"
+                            className="field-item--50 contact-field-full contact-field-phone"
                             required
                           />
                         </FieldGroup>
@@ -236,7 +236,7 @@ export const ContactInformation = InjectAppServices(
                             fieldName={fieldNames.company}
                             id="company"
                             label={`${_('checkoutProcessForm.contact_information_company')}`}
-                            className="field-item--50 dp-p-r"
+                            className="field-item--50 dp-p-r contact-field-company"
                           />
                           <SelectFieldItem
                             fieldName={fieldNames.industry}
@@ -245,7 +245,7 @@ export const ContactInformation = InjectAppServices(
                             defaultOption={defaultOption}
                             values={state.industries}
                             required
-                            className="field-item--50"
+                            className="field-item--50 contact-field-industry"
                           />
                         </FieldGroup>
                       </FieldItem>
@@ -261,7 +261,7 @@ export const ContactInformation = InjectAppServices(
                             defaultOption={defaultOption}
                             values={state.questions}
                             required
-                            className="field-item"
+                            className="field-item contact-field-full contact-field-security-question"
                           />
                           <InputFieldItem
                             type="text"
@@ -271,7 +271,7 @@ export const ContactInformation = InjectAppServices(
                               'checkoutProcessForm.contact_information_security_response',
                             )}`}
                             required
-                            className="field-item"
+                            className="field-item contact-field-full contact-field-security-response"
                           />
                         </FieldGroup>
                       </FieldItem>
