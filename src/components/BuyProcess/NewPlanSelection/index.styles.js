@@ -1216,6 +1216,35 @@ export const NewPlanSelectionStyled = styled.div`
     }
   }
 
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .dp-new-plan-selection-card-credits .dp-new-plan-selection-fields-credits {
+      padding-right: 0;
+    }
+
+    .dp-new-plan-selection-main {
+      display: block;
+    }
+
+    .dp-new-plan-selection-price {
+      border-left: 0;
+      justify-content: flex-start;
+      margin-left: 0;
+      margin-top: 24px;
+      padding-left: 0;
+      padding-top: 18px;
+      position: relative;
+    }
+
+    .dp-new-plan-selection-price::before {
+      border-top: 1px solid #e4e4e4;
+      content: '';
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   @media (max-width: 767px) {
     .dp-new-plan-selection-header {
       padding-left: 16px;
