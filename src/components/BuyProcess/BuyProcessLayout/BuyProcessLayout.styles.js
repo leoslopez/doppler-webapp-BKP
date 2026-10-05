@@ -66,4 +66,10 @@ export const BuyProcessLayoutContainer = styled.div`
       z-index: var(--dp-buy-process-stepper-z-index);
     }
   }
+
+  @media (max-width: 767px) {
+    .dp-add-on-selection .dp-new-plan-selection-back {
+      display: none;
+    }
+  }
 `;
