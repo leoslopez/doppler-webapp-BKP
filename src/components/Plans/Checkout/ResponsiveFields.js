@@ -98,7 +98,7 @@ export const ResponsiveFields = styled.div`
 
     &.billing-information-fields > .field-group > .billing-field-group,
     &.billing-information-fields > .field-group > .billing-field-group > .field-group {
-      display: contents;
+      display: contents !important;
     }
 
     &.billing-information-fields .field-item {
