@@ -18,7 +18,7 @@ export const ResponsiveFields = styled.div`
 
     &.contact-information-fields > .field-group > .field-item,
     &.contact-information-fields > .field-group > .field-item > .field-group {
-      display: contents;
+      display: contents !important;
     }
 
     &.contact-information-fields .field-item {
