@@ -68,6 +68,10 @@ export const BuyProcessLayoutContainer = styled.div`
   }
 
   @media (max-width: 767px) {
+    .dp-container.dp-add-on-selection.p-t-24 {
+      padding-top: 0 !important;
+    }
+
     .dp-add-on-selection .dp-new-plan-selection-back {
       display: none;
     }
