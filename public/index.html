@@ -71,14 +71,15 @@
       (function () {
         var params = new URLSearchParams(window.location.search);
         var awc = params.get('awc');
-        if (!awc) return;
+        var awRef = params.get('awRef');
+        if (!awc || !awRef) return;
         // Avoid double counting if the user reloads the redirect URL.
         if (window.sessionStorage && sessionStorage.getItem('awinConversionSent') === awc) return;
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'awinConversion',
           awc: awc,
-          awRef: params.get('awRef'),
+          awRef: awRef,
         });
         if (window.sessionStorage) {
           sessionStorage.setItem('awinConversionSent', awc);
