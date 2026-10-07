@@ -214,10 +214,10 @@ export const ContactsPlan = InjectAppServices(
       promocodeDiscountPercentage > 0 &&
       !isMoreThan100kSelected,
     );
-    const displayedMonthlyPrice =
-      hasPromocodeDiscount && typeof amountDetailsData?.value?.total === 'number'
-        ? amountDetailsData.value.total
-        : monthlyPrice;
+    const promocodePlanFee = amountDetailsData?.value?.planFee ?? selectedPlanFee;
+    const displayedMonthlyPrice = hasPromocodeDiscount
+      ? Math.max(promocodePlanFee - (promocodePlanFee * promocodeDiscountPercentage) / 100, 0)
+      : monthlyPrice;
     const canChoosePlan = selectedPlan && !isEqualPlan;
     const checkoutUrl = selectedPlan
       ? getCheckoutUrl({

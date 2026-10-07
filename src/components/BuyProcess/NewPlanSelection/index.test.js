@@ -392,6 +392,65 @@ describe('NewPlanSelection component', () => {
     ).toBeInTheDocument();
   });
 
+  it('should only show contact plans that support the current contacts for credit accounts', async () => {
+    const contactPlansForCreditAccount = [
+      {
+        ...contactPlans[0],
+        id: 10224,
+        subscriberLimit: 2500,
+      },
+      {
+        ...contactPlans[1],
+        id: 10225,
+        subscriberLimit: 5000,
+      },
+      {
+        ...contactPlans[1],
+        id: 10226,
+        subscriberLimit: 10000,
+      },
+    ];
+    const getPlansByType = jest.fn(async (planType, options) => {
+      if (planType === PLAN_TYPE.byContact) {
+        return options?.includeDowngrades
+          ? contactPlansForCreditAccount
+          : contactPlansForCreditAccount.filter((plan) => plan.subscriberLimit >= 5500);
+      }
+
+      if (planType === PLAN_TYPE.byCredit) {
+        return creditPlans;
+      }
+
+      return emailPlans;
+    });
+
+    await renderNewPlanSelection(['/new-plan-selection'], {
+      appSessionUser: {
+        plan: {
+          idPlan: 20222,
+          planType: PLAN_TYPE.byCredit,
+          isFreeAccount: false,
+          subscribersCount: 5500,
+        },
+      },
+      planService: { getPlansByType },
+    });
+
+    expect(getPlansByType).toHaveBeenCalledWith(PLAN_TYPE.byContact);
+    expect(getContactsSelect()).toHaveValue('0');
+    expect(within(getContactsSelect()).getAllByRole('option')).toHaveLength(2);
+    expect(
+      within(getContactsSelect()).getByRole('option', {
+        name: 'buy_process.new_plan_selection.contacts_option',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen
+        .getByRole('link', { name: 'buy_process.new_plan_selection.choose_plan' })
+        .getAttribute('href'),
+    ).toContain('selected-plan=10226');
+  });
+
   it('should render informational add-ons cards with real minimum prices and no card actions', async () => {
     await renderNewPlanSelection(['/new-plan-selection'], {}, { useI18nKeysAsValues: true });
 
@@ -2005,6 +2064,39 @@ describe('NewPlanSelection component', () => {
         textContentIncludes('buy_process.new_plan_selection.sticky_promocode_discount_text'),
       ).length,
     ).toBeGreaterThan(0);
+  });
+
+  it('should show zero instead of a negative contacts price after applying a promocode', async () => {
+    const forcedServices = await renderNewPlanSelection();
+    forcedServices.dopplerAccountPlansApiClient.getPlanBillingDetailsData.mockImplementation(
+      async (_planId, _planGroup, _discountId, promocode) =>
+        promocode
+          ? {
+              success: true,
+              value: {
+                ...amountDetailsWithPromocode.value,
+                planFee: -5,
+              },
+            }
+          : amountDetails,
+    );
+
+    fireEvent.change(within(getContactsPlanSection()).getByRole('textbox'), {
+      target: { value: 'PROMO50%' },
+    });
+    fireEvent.click(
+      within(getContactsPlanSection()).getByRole('button', {
+        name: 'buy_process.promocode.apply_btn',
+      }),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen
+          .getByTestId('dp-sticky-plan-summary')
+          .querySelector('.dp-new-plan-selection-sticky-summary-price'),
+      ).toHaveTextContent('US$0.00/buy_process.new_plan_selection.month_period'),
+    );
   });
 
   it('should hide promocode months in sticky when duration is 0', async () => {
