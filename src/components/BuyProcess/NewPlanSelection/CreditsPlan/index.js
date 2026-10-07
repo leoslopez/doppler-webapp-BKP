@@ -113,10 +113,10 @@ export const CreditsPlan = InjectAppServices(
       effectivePromocodeApplied?.canApply && promocodeDiscountPercentage > 0,
     );
     const hasExtraCredits = Boolean(effectivePromocodeApplied?.canApply && extraCredits > 0);
-    const displayedPrice =
-      hasPromocodeDiscount && typeof amountDetailsData?.value?.total === 'number'
-        ? amountDetailsData.value.total
-        : planFee;
+    const promocodePlanFee = amountDetailsData?.value?.planFee ?? planFee;
+    const displayedPrice = hasPromocodeDiscount
+      ? Math.max(promocodePlanFee - (promocodePlanFee * promocodeDiscountPercentage) / 100, 0)
+      : planFee;
     const pricePerCredit = creditsAmount > 0 ? displayedPrice / creditsAmount : 0;
     const checkoutUrl = selectedPlan
       ? getCheckoutUrl({ search, selectedPlan, promocodeApplied: effectivePromocodeApplied })

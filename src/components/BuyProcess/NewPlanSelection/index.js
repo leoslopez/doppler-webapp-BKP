@@ -75,6 +75,9 @@ export const NewPlanSelection = InjectAppServices(
   ({ dependencies: { appSessionRef, planService, dopplerLegacyClient } }) => {
     const { search } = useLocation();
     const sessionPlan = appSessionRef.current.userData.user;
+    const isCurrentPlanByCredit = sessionPlan?.plan?.planType === PLAN_TYPE.byCredit;
+    const isCurrentPlanByEmail =
+      sessionPlan?.plan?.planType === PLAN_TYPE.byEmail && !sessionPlan?.plan?.isFreeAccount;
 
     useTrackUpgradeIntention({ dopplerLegacyClient });
     const [plansByContact, setPlansByContact] = useState([]);
@@ -96,7 +99,9 @@ export const NewPlanSelection = InjectAppServices(
           setLoading(true);
           const [fetchedPlansByContact, fetchedPlansByCredit, fetchedPlansByEmail] =
             await Promise.all([
-              planService.getPlansByType(PLAN_TYPE.byContact, { includeDowngrades: true }),
+              isCurrentPlanByCredit
+                ? planService.getPlansByType(PLAN_TYPE.byContact)
+                : planService.getPlansByType(PLAN_TYPE.byContact, { includeDowngrades: true }),
               planService.getPlansByType(PLAN_TYPE.byCredit),
               planService.getPlansByType(PLAN_TYPE.byEmail, { includeDowngrades: true }),
             ]);
@@ -145,15 +150,11 @@ export const NewPlanSelection = InjectAppServices(
       };
 
       fetchPlans();
-    }, [planService, search, sessionPlan]);
+    }, [isCurrentPlanByCredit, planService, search, sessionPlan]);
 
     const selectedContactPlan = plansByContact[selectedContactPlanIndex] ?? null;
     const selectedCreditPlan = plansByCredit[selectedCreditPlanIndex] ?? null;
     const selectedEmailPlan = plansByEmail[selectedEmailPlanIndex] ?? null;
-    const isCurrentPlanByCredit = sessionPlan?.plan?.planType === PLAN_TYPE.byCredit;
-    const isCurrentPlanByEmail =
-      sessionPlan?.plan?.planType === PLAN_TYPE.byEmail && !sessionPlan?.plan?.isFreeAccount;
-
     const handlePlanChange = (event) => {
       const { value } = event.target;
 

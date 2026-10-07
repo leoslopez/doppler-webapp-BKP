@@ -140,10 +140,10 @@ export const EmailsPlan = InjectAppServices(
       !isLessThan100kSelected &&
       !isMoreThan10mSelected,
     );
-    const displayedMonthlyPrice =
-      hasPromocodeDiscount && typeof amountDetailsData?.value?.nextMonthTotal === 'number'
-        ? amountDetailsData.value.nextMonthTotal
-        : selectedPlanFee;
+    const promocodePlanFee = amountDetailsData?.value?.planFee ?? selectedPlanFee;
+    const displayedMonthlyPrice = hasPromocodeDiscount
+      ? Math.max(promocodePlanFee - (promocodePlanFee * promocodeDiscountPercentage) / 100, 0)
+      : selectedPlanFee;
     const canChoosePlan = selectedPlan && !isEqualPlan;
     const checkoutUrl = selectedPlan
       ? getCheckoutUrl({

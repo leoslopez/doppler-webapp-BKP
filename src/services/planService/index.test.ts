@@ -49,6 +49,31 @@ describe('planService', () => {
     });
   });
 
+  it('should only return contact plans that support the current contacts for credit accounts', async () => {
+    // Arrange
+    const dopplerLegacyClient = {
+      getAllPlans: jest.fn(async () => [
+        { type: PLAN_TYPE.byCredit, id: 20222, creditsQty: 1000, fee: 10 },
+        { type: PLAN_TYPE.byContact, id: 1, subscriberLimit: 2500, fee: 29 },
+        { type: PLAN_TYPE.byContact, id: 2, subscriberLimit: 5000, fee: 48 },
+        { type: PLAN_TYPE.byContact, id: 3, subscriberLimit: 10000, fee: 77 },
+      ]),
+    } as any;
+    const appSessionRef = getAppSessionRef({
+      planType: PLAN_TYPE.byCredit,
+      subscribersCount: 5500,
+    });
+    const planService = new PlanService({ dopplerLegacyClient, appSessionRef });
+
+    // Act
+    const plansByContact = await planService.getPlansByType(PLAN_TYPE.byContact);
+
+    // Assert
+    expect(plansByContact).toEqual([
+      { type: PLAN_TYPE.byContact, id: 3, subscriberLimit: 10000, fee: 77 },
+    ]);
+  });
+
   describe('getPlanTypes method', () => {
     it('should return plans by credit, email and contact when the plan is free', async () => {
       // Arrange
