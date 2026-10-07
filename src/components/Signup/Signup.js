@@ -118,6 +118,8 @@ const Signup = function ({
     gclid: query.get('gclid'),
     UTMContent: query.get('utm_content'),
     Origin_Inbound: query.get('origin_inbound'),
+    affiliate: utmCookiesManager.getAffiliateId?.(),
+    affiliateSource: utmCookiesManager.getAffiliateSource?.(),
   };
   utmCookiesManager.setCookieEntry(utmParams);
 
@@ -269,6 +271,12 @@ const Signup = function ({
     const redirectUrl = query.get('redirect');
     const origin = query.get('origin') ?? query.get('Origin');
     const utmCookies = utmCookiesManager.getUtmCookie() ?? [];
+
+    const affiliate = utmCookiesManager.getAffiliateId?.();
+    if (affiliate && utmCookies.length) {
+      utmCookies[utmCookies.length - 1].affiliate = affiliate;
+      utmCookies[utmCookies.length - 1].affiliateSource = utmCookiesManager.getAffiliateSource?.();
+    }
 
     const lastUTMCookieEntry = utmCookies[utmCookies.length - 1];
     const utmCookie =

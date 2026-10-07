@@ -5,6 +5,14 @@ export class UtmCookiesManager {
     this.hasRegistered = false;
   }
 
+  getAffiliateId() {
+    return this.getCookieFromDocument('AffiliateClickId');
+  }
+
+  getAffiliateSource() {
+    return this.getCookieFromDocument('AffiliateSource');
+  }
+
   setCookieEntry(utmParams) {
     const hasGclid = utmParams.gclid;
     const isFromFromdoppler = this.document?.referrer?.includes('fromdoppler.com');
@@ -24,11 +32,14 @@ export class UtmCookiesManager {
       }
 
       const cookiesAsJsonString = JSON.stringify(utmCookies);
+      const domain = process.env.REACT_APP_DOPPLER_ENVIRONMENT_DOMAIN || '.fromdoppler.com';
       this.document.cookie =
         this.cookieName +
         '=' +
         cookiesAsJsonString +
-        '; domain=.fromdoppler.com; path=/; expires=Fri, 31 Dec 2038 23:59:59 GMT;';
+        '; domain=' +
+        domain +
+        '; path=/; expires=Fri, 31 Dec 2038 23:59:59 GMT;';
 
       this.hasRegistered = true;
     }
