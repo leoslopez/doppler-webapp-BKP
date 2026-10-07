@@ -303,8 +303,6 @@ interface UTMCookie {
   gclid: string;
   UTMContent: string;
   Origin_Inbound: string;
-  affiliate: string;
-  affiliateSource: string;
 }
 
 export interface UserRegistrationModel extends PayloadWithCaptchaToken {

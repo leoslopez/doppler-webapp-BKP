@@ -66,26 +66,6 @@
       })(window, document, 'script', 'dataLayer', 'GTM-TMMV2DF');
     </script>
     <!-- End Google Tag Manager -->
-    <!-- Awin: capture awc/awRef from the activation redirect before React rewrites the URL -->
-    <script>
-      (function () {
-        var params = new URLSearchParams(window.location.search);
-        var awc = params.get('awc');
-        var awRef = params.get('awRef');
-        if (!awc || !awRef) return;
-        // Avoid double counting if the user reloads the redirect URL.
-        if (window.sessionStorage && sessionStorage.getItem('awinConversionSent') === awc) return;
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'awinConversion',
-          awc: awc,
-          awRef: awRef,
-        });
-        if (window.sessionStorage) {
-          sessionStorage.setItem('awinConversionSent', awc);
-        }
-      })();
-    </script>
     <script
       src="%REACT_APP_DATA_HUB_URL%/public/dhapi.js"
       type="text/javascript"
